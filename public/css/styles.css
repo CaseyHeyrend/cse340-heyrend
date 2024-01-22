@@ -4,9 +4,8 @@
 *:after {
   box-sizing: border-box;
 }
-html{
-  background-image: none;
-  background-repeat: repeat;
+#back{
+  background-image: url("checkerboard.jpg");
 }
 /*html {
   background-color: #000000;
