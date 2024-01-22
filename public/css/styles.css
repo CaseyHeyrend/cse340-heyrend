@@ -4,7 +4,7 @@
 *:after {
   box-sizing: border-box;
 }
-.background{
+html{
   background-image: url("checkerboard.jpg");
 }
 /*html {
