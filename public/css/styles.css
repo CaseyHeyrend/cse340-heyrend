@@ -4,6 +4,10 @@
 *:after {
   box-sizing: border-box;
 }
+html{
+  background-image: none;
+  background-repeat: repeat;
+}
 /*html {
   background-color: #000000;
   background-image:
@@ -18,7 +22,10 @@ body{
   border-color: #4ec1dc;
   border-style: solid;
   background-color: #ffffff;
-  padding-left: 0%;
+  padding: 2%;
+  margin-top: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 /* Header */
 #top-header >.siteName {
@@ -29,49 +36,46 @@ body{
   font-size: larger;
   width: 70%;
   flex-wrap: wrap;
-  border-radius: 10px;
 }
 
-#tools {
-  justify-content: left;
+#top-header >#tools {
   display: flex;
   flex-direction: row;
+  margin: auto;
+  justify-content: right;
+  width: 70%;
   flex-wrap: wrap;
 
 }
 /* This a navigation part */
-nav {
-  display: flex;
-  justify-content: space-around; 
-  background-color: #242332;
-  color: #ffffff;
+  nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around; 
+    background-color: #242332;
+    color: #ffffff;
+    padding: 25px;
+    margin-left: auto;
+    margin-right: auto;
   }
-nav a {
+/*nav a {
   text-align: center;
   text-decoration: none;
-  padding: 35px;
+  padding: 25px;
   margin-left: auto;
   margin-right: auto;
 
-}
-nav a:hover {
+}*/
+/*nav a:hover {
   background-color: #242332;
   color: #ffffff;
-}
+}*/
 /* Footer */
-footer {
+body > footer {
   background-color: #ffffff;
   position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
   padding: 0.5rem;
   text-align: left;
-  border-style: solid;
-  border-color: #000000;
-  border-right-style: none;
-  border-left-style: none;
-  border-bottom-style: none;
 }
 
 
