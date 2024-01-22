@@ -34,7 +34,6 @@ body{
   margin: auto;
   justify-content: left;
   font-size: larger;
-  width: 70%;
   flex-wrap: wrap;
 }
 
@@ -43,7 +42,6 @@ body{
   flex-direction: row;
   margin: auto;
   justify-content: right;
-  width: 70%;
   flex-wrap: wrap;
 
 }
@@ -54,7 +52,7 @@ body{
     justify-content: space-around; 
     background-color: #242332;
     color: #ffffff;
-    padding: 25px;
+    padding: 15px;
     margin-left: auto;
     margin-right: auto;
   }
