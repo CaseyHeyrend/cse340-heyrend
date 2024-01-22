@@ -17,16 +17,32 @@ html {
 body{
   border-radius: 10px;
   border-color: #4ec1dc;
+  border-style: solid;
   background-color: #ffffff;
 }
+/* Header */
+#top-header {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  justify-content: center;
+  width: 70%;
+  flex-wrap: wrap;
+  border-radius: 10px;
+}
+/*  .siteName{
+
+}
+#tools {
+
+} */
 /* This a navigation part */
-nav{
-  list-style: none;
+nav {
   display: flex;
   justify-content: space-around;
   background-color: #242332;
   color: #ffffff;
-}
+  }
 nav a {
   text-align: center;
   color: #ffffff;
@@ -40,13 +56,34 @@ nav a:hover {
   background-color: #242332;
   color: #ffffff;
 }
+/* Footer */
+footer {
+  background-color: #000000;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 0.5rem;
+  text-align: right;
+  border-style: solid;
+  border-color: #000000;
+  border-right-style: none;
+  border-left-style: none;
+  border-bottom-style: none;
+}
 
 
-#name{
-  background-color: #F5F5F5;/*WhiteSmoke*/
-  margin: 10px;
-  padding: 10px;
-  font-size: 15px;
-  border-radius: 10px;
-  width: 15%;
+@media screen and (max-width: 900px) {
+  
+  nav, footer {
+      flex-direction: column;
+  }
+  nav a {
+      display: block;
+      padding: 15px;
+  }
+  
+  footer {
+      margin-top: 25px;
+  }
 }
