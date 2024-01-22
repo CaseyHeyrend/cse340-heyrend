@@ -4,7 +4,6 @@
 *:after {
   box-sizing: border-box;
 }
-
 html {
   background-color: #000000;
   background-image:
@@ -15,46 +14,33 @@ html {
   background-size:25px 25px; /* Must be a square */
   background-position:0 0, 12.5px 0, 12.5px -12.5px, 0px 12.5px; /* Must be half of one side of the square */
 }
-#nav{
-  background-color: #F5F5F5;/*WhiteSmoke*/
-  margin: 10px;
-  padding: 10px;
-  font-size: 15px;
+body{
   border-radius: 10px;
-  width: 15%;
+  border-color: #4ec1dc;
+  background-color: #ffffff;
 }
-#nav{
-  background-color: #F5F5F5;/*WhiteSmoke*/
-  margin: 10px;
-  padding: 10px;
-  font-size: 15px;
-  border-radius: 10px;
-  width: 15%;
+/* This a navigation part */
+nav{
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  background-color: #242332;
+  color: #ffffff;
 }
-.siteName{
-  background-color: #F5F5F5;/*WhiteSmoke*/
-  margin: 10px;
-  padding: 10px;
-  font-size: 15px;
-  border-radius: 10px;
-  width: 15%;
+nav a {
+  text-align: center;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 35px;
+  margin-left: auto;
+  margin-right: auto;
+
 }
-#tools{
-  background-color: #F5F5F5;/*WhiteSmoke*/
-  margin: 10px;
-  padding: 10px;
-  font-size: 15px;
-  border-radius: 10px;
-  width: 15%;
+nav a:hover {
+  background-color: #242332;
+  color: #ffffff;
 }
-#footer{
-  background-color: #F5F5F5;/*WhiteSmoke*/
-  margin: 10px;
-  padding: 10px;
-  font-size: 15px;
-  border-radius: 10px;
-  width: 15%;
-}
+
 
 #name{
   background-color: #F5F5F5;/*WhiteSmoke*/
