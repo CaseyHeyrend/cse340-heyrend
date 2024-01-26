@@ -11,29 +11,20 @@ html {
     linear-gradient(135deg, #ffffff 25%, transparent 25%),
     linear-gradient(45deg, transparent 75%, #ffffff 75%),
     linear-gradient(135deg, transparent 75%, #ffffff 75%);
-    background-size:25px 25px; /* Must be a square*/
-    background-position:0 0, 12.5px 0, 12.5px -12.5px, 0px 12.5px; /* Must be half of one side of the square*/
+  background-size:25px 25px; /* Must be a square*/
+  background-position:0 0, 12.5px 0, 12.5px -12.5px, 0px 12.5px; /* Must be half of one side of the square*/
   }
 body{
-  border: 10px;
-  border-radius: 50px;
+  border: 5px;
+  border-radius: 25px;
   border-color: #4ec1dc;
   border-style: solid;
   background-color: #ffffff;
-  padding: 2%;
+  padding: 3%;
   margin-top: 20px;
   margin-left: 50px;
   margin-right: 50px;
 }
-.dinfobox{
- background-color: #ffffff; 
- width: 200px;
- padding: 50px;
- margin: 20px;
- color: #4ec1dc; 
- /*opacity: .3;*/
-}
-
 /* Header */
 #top-header >.siteName {
   display: flex;
@@ -43,17 +34,16 @@ body{
   font-size: larger;
   flex-wrap: wrap;
 }
-
 #top-header >#tools {
   display: flex;
   flex-direction: row;
   margin: auto;
   justify-content: right;
   flex-wrap: wrap;
-
 }
+/* End of Header */
 /* This a navigation part */
-  nav ul {
+nav ul {
     list-style-type: none;
     display: flex;
     justify-content: space-around; 
@@ -75,9 +65,69 @@ body{
   background-color: #242332;
   color: #ffffff;
 }*/
+/* End of navigation*/
+/* Main Part*/
+.delorean{
+  margin: 0 auto;
+  width: 100%;
+}
+.dinfobox{
+  position:static;
+  padding-left: 20px;
+  top: 140px;
+  /* background-color: #ffffff; 
+  width: 200px;
+  padding: 50px;
+  margin: 20px;*/
+  color: #4ec1dc; 
+  /*opacity: .3;*/
+}
+.owntoday{
+  padding: 30px;
+  padding-bottom: 0px;
+  display: block;
+  margin: auto;
+  height: 60px;
+}
+/* 
+.column*/ 
+
+/*.center{
+  margin-left: auto;
+  margin-right: auto;
+  width:100%;}
+*/
+.upgrades{
+  column-count: 3;
+  column-gap: 20px;
+}
+.U1{
+  background-color: #05b0d3;
+  width: 100px;
+  height: 110px;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+}
+.U2{
+  background-color: #05b0d3;
+  width: 100px;
+  height: 95px;
+  box-sizing: border-box;
+}
+.U3{
+  background-color: #05b0d3;
+  width: 100px;
+  height: 95px;
+  box-sizing: border-box;
+}
+.U4{
+  background-color: #05b0d3;
+  width: 100px;
+  height: 110px;
+  box-sizing: border-box;
+}
 /* Footer */
 body > footer {
-  background-color: #ffffff;
   position: absolute;
   padding: 0.5rem;
   text-align: left;
