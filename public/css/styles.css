@@ -4,17 +4,11 @@
 *:after {
   box-sizing: border-box;
 }
-html {
-  background-color: #000000;
-  background-image:
-    linear-gradient(45deg, #ffffff 25%, transparent 25%), 
-    linear-gradient(135deg, #ffffff 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #ffffff 75%),
-    linear-gradient(135deg, transparent 75%, #ffffff 75%);
-  background-size:25px 25px; /* Must be a square*/
-  background-position:0 0, 12.5px 0, 12.5px -12.5px, 0px 12.5px; /* Must be half of one side of the square*/
+body {
+  background-image: url("/images/site/small_check.jpg");
+  background-repeat: repeat;
   }
-body{
+#wrapper{
   border: 5px;
   border-radius: 25px;
   border-color: #4ec1dc;
@@ -25,6 +19,12 @@ body{
   margin-left: 50px;
   margin-right: 50px;
 }
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  }
+
 /* Header */
 #top-header >.siteName {
   display: flex;
@@ -85,7 +85,6 @@ nav ul {
 .owntoday{
   padding: 30px;
   padding-bottom: 0px;
-  display: block;
   margin: auto;
   height: 60px;
 }
