@@ -14,7 +14,7 @@ body {
   border-color: #4ec1dc;
   border-style: solid;
   background-color: #ffffff;
-  padding: 3%;
+  padding: 4%;
   margin-top: 20px;
   margin-left: 50px;
   margin-right: 50px;
@@ -96,35 +96,22 @@ nav ul {
   margin-right: auto;
   width:100%;}
 */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+
+}
 .upgrades{
   column-count: 3;
-  column-gap: 20px;
-}
-.U1{
+  column-gap: 20px;  
   background-color: #05b0d3;
   width: 100px;
   height: 110px;
   padding-bottom: 20px;
   box-sizing: border-box;
 }
-.U2{
-  background-color: #05b0d3;
-  width: 100px;
-  height: 95px;
-  box-sizing: border-box;
-}
-.U3{
-  background-color: #05b0d3;
-  width: 100px;
-  height: 95px;
-  box-sizing: border-box;
-}
-.U4{
-  background-color: #05b0d3;
-  width: 100px;
-  height: 110px;
-  box-sizing: border-box;
-}
+
 /* Footer */
 body > footer {
   position: absolute;
