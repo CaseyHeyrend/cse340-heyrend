@@ -113,6 +113,7 @@ button.owntoday{
 .features{
   column-count: 2;
   column-gap: 10px;
+  flex-direction: column;
 }
 
 .upgrades{  
@@ -120,11 +121,14 @@ button.owntoday{
   padding: 0;
   margin: 0;
   display: flex;
-  background-color: #05b0d3;
   width: 100px;
-  height: 110px;
-  padding-bottom: 20px;
   flex-direction: column;
+}
+.addons
+{
+  display: grid;
+  grid-template-columns: 200px 200px;
+  background-color: #4ec1dc;
 }
 
 /* Footer */
