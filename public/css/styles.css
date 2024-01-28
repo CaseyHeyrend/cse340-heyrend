@@ -99,11 +99,6 @@ button.owntoday{
   cursor: pointer;
   border-radius: 4px;
 }
-/*.center{
-  margin-left: auto;
-  margin-right: auto;
-  width:100%;}
-*/
 .features-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -140,7 +135,14 @@ body > footer {
 }
 
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 768px) {
+
+  #wrapper {
+    margin: 1px auto;
+    padding: 5px;
+    border: 5px solid #4ec1dc;
+    border-radius: 10px;
+  }
   
   nav, footer {
       flex-direction: column;
