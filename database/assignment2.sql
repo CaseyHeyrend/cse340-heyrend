@@ -1,9 +1,19 @@
 -- Insert a client into the clients table --
-INSERT INTO public.account (account_firstname, account_lastname, account_email, account_password) 
-VALUES('Tony', 'Stark', 'tony@starkent.com', 'Iam1ronM@n');
+INSERT INTO public.account (
+    account_firstname, 
+    account_lastname, 
+    account_email, 
+    account_password
+    ) 
+VALUES(
+    'Tony', 
+    'Stark', 
+    'tony@starkent.com', 
+    'Iam1ronM@n'
+    );
 
--- Modify the Tony Stark record to change the --
-UPDATE public.account SET account_type Admin 
+-- Modify the Tony Stark record to change the Admin --
+UPDATE public.account SET account_type ='Admin' 
 WHERE account_id = 1;
 
 -- Delete Tony Stark account from database --
@@ -24,7 +34,3 @@ UPDATE public.inventory
 SET 
     inv_image = REPLACE (inv_image, '/images/', './images/vehicles'),
     inv_thumbnail = REPLACE (inv_thumbnail, '/images/', './images/vehicles/');
-
-
-
-
