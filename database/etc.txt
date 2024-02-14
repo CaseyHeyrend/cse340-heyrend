@@ -1,3 +1,0 @@
--- Insert a client into the clients table --
-INSERT INTO clients (clientFirstname, clientLastname, clientEmail, clientPassword, comment) 
-VALUES('Tony', 'Stark', 'tony@starkent.com', 'Iam1ronM@n', 'I am the real Ironman');
