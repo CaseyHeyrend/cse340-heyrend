@@ -1,6 +1,13 @@
-<!--A content heading a message, and the inventory items display.-->
+<!-- A content heading -->
 <% if (title) { %>
     <h1><%= title %></h1>
     <% } else {
       res.redirect('/')
     } %>
+
+<!--a message #-->
+<%# messages() %>
+
+<!-- the inventory items display -->
+
+<%- grid %>
