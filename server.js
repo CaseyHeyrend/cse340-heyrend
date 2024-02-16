@@ -13,6 +13,7 @@ const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
+const utilities = require("./utilities/")
 
 
 /* ***********************<
@@ -31,7 +32,8 @@ app.use(static)
 // Inventory routes
 
 //app.get("/", function(req, res){res.render("index", {title: "Home"})})
-app.get("/", baseController.buildHome)
+//app.get("/", baseController.buildHome)
+app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/inv", inventoryRoute)
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
