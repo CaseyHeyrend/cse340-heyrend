@@ -24,19 +24,6 @@ Util.getNav = async function (req, res, next) {
   list += "</ul>"
   return list
 }
-
-/* ****************************************
- * Middleware For Handling Errors
- * Wrap other function in this for 
- * General Error Handling
- **************************************** */
-Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
-
-
-
-module.exports = Util
-
-
 /* **************************************
 * Build the classification view HTML
 * ************************************ */
@@ -69,3 +56,35 @@ Util.buildClassificationGrid = async function(data){
   }
   return grid
 }
+
+/* ****************************************
+* Build the inventory detail view HTML
+* *************************************** */
+Util.buildVehicleWrap = async function(data) {
+  let wrap
+  if (data) {
+    wrap = '<div id="inv-wrap">'
+    wrap += '<img src="' + data.inv_image + '" alt="' + data.inv_make + " " + data.inv_model
+    wrap += ' on CSE Motors">'
+    wrap += '<span>$' + new Intl.NumberFormat('en-US').format(data.inv_price) + '</span>'
+    wrap += '<table>'
+    wrap += '<tr><th>Mileage</th><th>Color</th></tr>'
+    wrap += '<tr><td>' + new Intl.NumberFormat('en-US').format(data.inv_miles) + '</td><td>' + data.inv_color + '</td></tr>'
+    wrap += '<tr><th colspan="2">Description</th></tr>'
+    wrap += '<tr><td colspan="2">' + data.inv_description + '</td></tr>'
+    wrap += '</table>'
+    wrap += '</div>'
+  } else {
+    wrap += '<p class="notice">Sorry, vehicle not found.</p>'
+  }
+  return wrap
+}
+
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
+module.exports = Util

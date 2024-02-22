@@ -1,0 +1,121 @@
+
+body{
+  background-image: url("/images/site/small_check.jpg");
+  background-repeat: repeat;
+}
+#wrapper{
+  border: 5px;
+  border-radius: 25px;
+  border-color: #4ec1dc;
+  border-style: solid;
+  background-color: #ffffff;
+  padding: 4%;
+  margin-top: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  }
+#top-header >.siteName {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  justify-content: left;
+  font-size: larger;
+  flex-wrap: wrap;
+}
+#top-header >#tools {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  justify-content: right;
+  flex-wrap: wrap;
+}
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around; 
+    background-color: #242332;
+    color: #ffffff;
+    padding: 15px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+nav a {
+  text-align: center;
+  text-decoration: none;
+  padding: 25px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+nav a:hover {
+  background-color: #242332;
+  color: #ffffff;
+}
+.delorean{
+  margin: 0 auto;
+  width: 100%;
+}
+.dinfobox{
+  position: absolute;
+  background-color:rgba(254, 254, 254, 0.5) ;
+  bottom: -10px;
+  left: 100px;
+  padding: 35px;
+  padding-left: 20px;
+  color: #4ec1dc; 
+  width: 200px;
+  padding: 50px;
+  margin: 20px;
+}
+button.owntoday{
+  background-color: #4ec1dc;
+  border: none;
+  color: #ffffff;
+  padding: 10px;
+  text-align: center;
+  padding-bottom: 0px;
+  margin: auto;
+  height: 60px;
+  display: inline-block;
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.features{
+  column-count: 2;
+  column-gap: 10px;
+  flex-direction: column;
+}
+
+.upgrades{  
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  width: 100px;
+  flex-direction: column;
+}
+.addons
+{
+  display: grid;
+  grid-template-columns: 200px 200px;
+  grid-gap: 2px;
+  background-color: #4ec1dc;
+}
+body > footer {
+  position: absolute;
+  padding: 0.5rem;
+  text-align: left;
+}
