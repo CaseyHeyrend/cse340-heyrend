@@ -29,7 +29,7 @@ invCont.buildVehicleDetailView = async function (req, res, next) {
   const inv_year = data.inv_year
   const inv_make = data.inv_make
   const inv_model = data.inv_model
-  res.render("./inventory/details", {
+  res.render("./inventory/detail.ejs", {
     title: inv_year + " " + inv_make + " " + inv_model,
     nav,
     wrap,
