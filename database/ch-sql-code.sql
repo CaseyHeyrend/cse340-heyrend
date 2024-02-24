@@ -236,17 +236,7 @@ VALUES   (
     'White',
     5
   );
--- Modify the "GM Hummer" record to read "a huge interior" rather than "small interior" using a single query.--
-UPDATE public.inventory SET inv_description = REPLACE(inv_description, 'small interiors', 'a huge interior')
-WHERE inv_id = 10;
 
--- In join Sport --
-SELECT inv_make, inv_model
-FROM public.inventory
-INNER JOIN public.classification
-ON inventory.classification_id = classification.classification_id
-WHERE classification_name = 'Sport';
- 
 -- Update the inventory table to add "/vehicles" to the middle of the file path in the inv_image and inv_thumbnail columns
 UPDATE public.inventory
 SET
