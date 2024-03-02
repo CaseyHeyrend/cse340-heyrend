@@ -274,6 +274,59 @@ section {
   text-decoration: none;
   color: black;
 }
+/* Login */
+form {
+  max-width: 500px;
+  grid-column: 1/3;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 1em;
+  border: 2px solid var(--main-accent);
+  border-radius: .3em;
+
+  background-image: linear-gradient(45deg, var(--main-accent), var(--main-accent));
+}
+
+form p {
+  text-align: center;
+}
+form label {
+  margin-bottom: .3em;
+}
+
+form input {
+  font-size: 1em;
+  padding: .5em;
+  border: none;
+  border-bottom: 1px solid black;
+  margin-bottom: .8em;
+}
+
+form input[type="submit"], #pswdBtn {
+  margin: 0.8em auto;
+  padding: .8em;
+  min-width: 100px;
+  border-radius: 1.3em;
+  background-color: white;
+  border-bottom: none;
+  cursor: pointer;
+}
+
+input:required:invalid, input:focus:invalid {
+  background-image: url(/images/site/invalid.png);
+  background-position: right top;
+  background-repeat: no-repeat;
+}
+
+input:required:valid {
+  background-image: url(/images/site/valid.png);
+  background-position: right top;
+  background-repeat: no-repeat;
+}
+
 
 @media only screen and (min-width: 768px) {
   /* body */
