@@ -35,4 +35,6 @@ invCont.buildVehicleDetailView = async function (req, res, next) {
     wrap,
   })
 }
+
+
 module.exports = invCont

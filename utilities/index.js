@@ -80,7 +80,20 @@ Util.buildVehicleWrap = async function(data) {
   }
   return wrap
 }
+/* ****************************************
+* Build the mangement view HTML
+* *************************************** */
+util.buildmanagement = async function(data) {
+  let manage
+  
+}
+/* ****************************************
+* Build the Add classification view HTML
+* *************************************** */
 
+/* ****************************************
+* Build the Add inventory view HTML
+* *************************************** */
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
