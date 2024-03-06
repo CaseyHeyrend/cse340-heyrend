@@ -83,10 +83,7 @@ Util.buildVehicleWrap = async function(data) {
 /* ****************************************
 * Build the mangement view HTML
 * *************************************** */
-util.buildmanagement = async function(data) {
-  let manage
-  
-}
+
 /* ****************************************
 * Build the Add classification view HTML
 * *************************************** */
