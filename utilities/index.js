@@ -80,6 +80,18 @@ Util.buildVehicleWrap = async function(data) {
   }
   return wrap
 }
+/* ****************************************
+* Build the mangement view HTML
+* *************************************** */
+
+/* ****************************************
+* Build the Add classification view HTML
+* *************************************** */
+
+/* ****************************************
+* Build the Add inventory view HTML
+* *************************************** */
+
 Util.buildClassDropdown = async function (classification_id) {
   let data = await invModel.getClassifications()
   let select =
@@ -96,17 +108,6 @@ Util.buildClassDropdown = async function (classification_id) {
   return select
 }
 
-/* ****************************************
-* Build the mangement view HTML
-* *************************************** */
-
-/* ****************************************
-* Build the Add classification view HTML
-* *************************************** */
-
-/* ****************************************
-* Build the Add inventory view HTML
-* *************************************** */
 
 /* ****************************************
  * Middleware For Handling Errors
