@@ -341,7 +341,25 @@ input:required:valid {
   color: var(--secondary);
   max-width: 300px;
 }
+.form-span {
+  display: block;
+  padding: 10px;
+  text-align: center;
+}
 
+.class-dropdown {
+  padding: 8px;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.inv-table{
+  padding-top: 20px;
+}
+
+.inv-table td{
+  padding: 7px;
+}
 
 
 @media only screen and (min-width: 768px) {
