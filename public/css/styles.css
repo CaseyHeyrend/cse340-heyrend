@@ -326,6 +326,22 @@ input:required:valid {
   background-position: right top;
   background-repeat: no-repeat;
 }
+/* Management */
+.p-font {
+  font-family: var(--paragraph-font);
+  color: var(--primary); /* Just to be sure */
+}
+.management-link {
+  display: block;
+  padding: 10px;
+  font-size: 1.2em;
+}
+.management-link:hover {
+  background-color: var(--primary);
+  color: var(--secondary);
+  max-width: 300px;
+}
+
 
 
 @media only screen and (min-width: 768px) {
