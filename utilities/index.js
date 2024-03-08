@@ -80,33 +80,6 @@ Util.buildVehicleWrap = async function(data) {
   }
   return wrap
 }
-/* ****************************************
-* Build the mangement view HTML
-* *************************************** */
-
-/* ****************************************
-* Build the Add classification view HTML
-* *************************************** */
-
-/* ****************************************
-* Build the Add inventory view HTML
-* *************************************** */
-
-Util.buildClassDropdown = async function (classification_id) {
-  let data = await invModel.getClassifications()
-  let select =
-    '<label for="classification_id">Classification:</label><select id="classification_id" class="class-dropdown p-font" name="classification_id" required><option value="" disabled selected>Select classification</option>'
-
-  for (var i = 0; i < data.rowCount; i++) {
-    const selected =
-      classification_id && data.rows[i].classification_id === classification_id
-        ? "selected"
-        : ""
-    select += `<option value="${data.rows[i].classification_id}" ${selected}>${data.rows[i].classification_name}</option>`
-  }
-  select += "</select>"
-  return select
-}
 
 
 /* ****************************************

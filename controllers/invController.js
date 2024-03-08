@@ -35,6 +35,20 @@ invCont.buildVehicleDetailView = async function (req, res, next) {
     wrap,
   })
 }
+/* ****************************************
+* Build the mangement view HTML
+* *************************************** */
+invCont.buildManagementView = async function(req, res, next){
+  
+}
+/* ****************************************
+* Build the Add classification view HTML
+* *************************************** */
+
+/* ****************************************
+* Build the Add inventory view HTML
+* *************************************** */
+
 
 
 module.exports = invCont
