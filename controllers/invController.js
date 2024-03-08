@@ -39,15 +39,33 @@ invCont.buildVehicleDetailView = async function (req, res, next) {
 * Build the mangement view HTML
 * *************************************** */
 invCont.buildManagementView = async function(req, res, next){
-  
+   let nav = await utilities.getNav() 
+   res.render("./inventory/management.ejs", {
+    title: "Inventory Management Menu",
+    nav
+  }) 
 }
+
 /* ****************************************
 * Build the Add classification view HTML
 * *************************************** */
-
+invCont.buildAddClassification = async function(req, res, next){
+  let nav = await utilities.getNav() 
+  res.render("./inventory/add-classification.ejs", {
+   title: "Add New Classification",
+   nav
+  }) 
+}
 /* ****************************************
 * Build the Add inventory view HTML
 * *************************************** */
+invCont.buildAddInventory = async function(req, res, next){
+  let nav = await utilities.getNav() 
+  res.render("./inventory/add-inventory.ejs", {
+    title: "Add New Vehicle",
+    nav
+  })
+}
 
 
 
