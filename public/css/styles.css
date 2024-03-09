@@ -315,36 +315,63 @@ form input[type="submit"], #pswdBtn {
   cursor: pointer;
 }
 
+/* Invalid input */
 input:required:invalid, input:focus:invalid {
-  background-image: url(/images/site/invalid.png);
-  background-position: right top;
-  background-repeat: no-repeat;
+  /* Invalid input */
+  border: 2px solid red;
+  background-color: rgb(248, 190, 190);
+}
+/* valid input */
+input:required:valid {
+  border: 2px solid green;
+  background-color: rgb(210, 244, 210);
+}
+  
+/* Add Inventory */
+textarea {
+  color: #007bff;
+  min-height: 200px;
+  font-size: 1.0em;
+}
+.inv-label label {
+  font-size: 1.0em;
 }
 
-input:required:valid {
-  background-image: url(/images/site/valid.png);
-  background-position: right top;
-  background-repeat: no-repeat;
+.form-box {
+  max-width: 100%;
 }
+
+select {
+  background-color: rgb(255, 255, 255);
+  margin-top: 15px;
+  padding: 5px 20px .5px 1px;
+  font-size: 1rem;
+}
+
+select:hover{
+  background-color: rgb(2, 117, 121);
+  color: white;
+}
+
 /* Management */
-.p-font {
-  font-family: var(--paragraph-font);
-  color: var(--primary); /* Just to be sure */
-}
-.management-link {
-  display: block;
-  padding: 10px;
-  font-size: 1.2em;
-}
-.management-link:hover {
-  background-color: var(--primary);
-  color: var(--secondary);
-  max-width: 300px;
-}
-.form-span {
-  display: block;
-  padding: 10px;
+.management {
+  display: grid;
+  gap: 2em;
+  background-color:var(--main-accent);
   text-align: center;
+  padding: 2em;
+  margin: 25%;
+  max-width: 400px;
+}
+.management a {
+  font-size: larger;
+  background-color: white;
+  padding: 5px;
+  justify-content: center;
+}
+.management a:hover {
+  background-color: rgb(2, 146, 122);
+  color: white;
 }
 
 
