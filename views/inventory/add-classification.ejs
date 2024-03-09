@@ -7,14 +7,6 @@
     <%- messages() %>
 
     <!-- Add Classification View -->
-    <% if (errors) { %>
-      <ul class="error">
-     <% errors.array().forEach(error => { %>
-       <li><%= error.msg %></li>
-    <%  }) %>
-     </ul>
-    <% } %>
-    
 <div class="form-box">
   <form action="/inv/add-classification" method="post">
       <div class="inv-label">
