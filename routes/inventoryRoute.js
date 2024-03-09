@@ -18,8 +18,21 @@ router.get("/management", invController.buildManagement);
 router.get("/add-classification", invController.buildAddClassification);
 
 // Add-Inventory View
-router.get("/add-inventory",utilities.handleErrors (invController.BuildAddInventory),);
+router.get("/add-inventory",utilities.handleErrors (invController.buildAddInventory));
 
-
+//Add the new Classification
+router.post(
+    "/add-classification",
+    regValidate.classificationRules(),
+    regValidate.checkClassificationData,
+    utilities.handleErrors(invController.AddNewClassification),
+  );
+// Add-Inventory View
+router.post(
+    "/add-inventory",
+    regValidate.inventoryRules(),
+    regValidate.checkInventoryData,
+    utilities.handleErrors(invController.AddNewInventory),
+  );
 
 module.exports = router;
