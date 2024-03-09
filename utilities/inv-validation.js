@@ -1,160 +1,133 @@
-const utilities = require(".")
-const { body, validationResult } = require("express-validator")
-const validate = {}
+const invModel = require("../models/inventory-model");
+const utilities = require(".");
+const { body, validationResult } = require("express-validator");
+const validate = {};
 
-// classification rules
-
-validate.classRules = () => {
+// Classification Data rules
+validate.classificationRules = () => {
   return [
-    body("classification_name")
+    body("add_classification")
       .trim()
-      .isLength({ min: 3 })
-      .isAlpha()
-      .withMessage("Provide a correct classification name."),
-  ]
-}
-
-// check data and return errors or continue
-validate.checkClassData = async (req, res, next) => {
-  const { classification_name } = req.body
-  let errors = []
-  errors = validationResult(req)
-  if (!errors.isEmpty()) {
-    let nav = await utilities.getNav()
-    res.render("inventory/add-classification", {
-      errors,
-      title: "Add New Classification",
-      nav,
-      classification_name,
-    })
-    return
-  }
-  next()
-}
-
-validate.vehicleRules = () => {
+      .isLength({ min: 4 })
+      .matches(/^[^\s]+$/, "g")
+      .withMessage("Please enter a valid classification name")
+      .custom(async (add_classification) => {
+        const classificationExists =
+          await invModel.checkExistingClassification(add_classification);
+        if (classificationExists) {
+          throw new Error(
+            "Classification with that name already exists. Please try different name.",
+          );
+        }
+      }),
+  ];
+};
+//Inventory Data Rules
+validate.inventoryRules = () => {
   return [
-    body("inv_price")
-      .trim()
-      .isNumeric()
-      .withMessage("Please provide a valid price."),
-    body("inv_miles")
-      .trim()
-      .isNumeric()
-      .withMessage("Please provide a valid number of miles."),
-    body("classification_id")
-      .trim()
-      .isNumeric()
-      .withMessage("Please provide a valid classification ID."),
-    body("inv_description")
-      .trim()
-      .isLength({ min: 3 })
-      .withMessage("Please provide a description."),
-    body("inv_image")
-      .trim()
-      .isLength({ min: 3 })
-      .withMessage("Please provide an image path."),
-    body("inv_thumbnail")
-      .trim()
-      .isLength({ min: 3 })
-      .withMessage("Please provide a thumbnail path."),
-    body("inv_color")
-      .trim()
-      .isLength({ min: 2 })
-      .withMessage("Please provide a color."),
+    // vehicle make
     body("inv_make")
       .trim()
       .isLength({ min: 3 })
-      .withMessage("Please provide a make."),
+      .withMessage("Please enter a valid vehicle make."),
+    // vehicle model
     body("inv_model")
       .trim()
       .isLength({ min: 3 })
-      .withMessage("Please provide a model."),
+      .withMessage("Please enter a valid vehicle model."),
+    // vehicle year
     body("inv_year")
       .trim()
-      .isNumeric()
-      .withMessage("Please provide a valid year."),
-  ]
-}
+      .isLength({ max: 4, min: 4 })
+      .withMessage("Please enter a valid vehicle year."),
+    // vehicle description
+    body("inv_description")
+      .trim()
+      .isLength({ max: 150, min: 1 })
+      .withMessage("Please enter a valid vehicle description."),
+    // vehicle image
+    body("inv_image")
+      .trim()
+      .isLength({ min: 3 })
+      .withMessage("Please enter a valid vehicle image."),
+    // vehicle thumbnail
+    body("inv_thumbnail")
+      .trim()
+      .isLength({ min: 3 })
+      .withMessage("Please enter a valid vehicle thumbnail."),
+    // vehicle price
+    body("inv_price")
+      .trim()
+      .isLength({ min: 1 })
+      .withMessage("Please enter a valid vehicle price."),
+    // vehicle mileage
+    body("inv_miles")
+      .trim()
+      .isLength({ min: 1 })
+      .withMessage("Please enter a valid vehicle miles."),
+    // vehicle color
+    body("inv_color")
+      .trim()
+      .isLength({ min: 1 })
+      .withMessage("Please enter a valid vehicle color."),
+  ];
+};
+//Check data and return errors or continue to add new classification
+validate.checkClassificationData = async (req, res, next) => {
+  const { add_classification } = req.body;
+  let errors = [];
+  errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    res.render("./inventory/add-classification", {
+      errors,
+      title: "Add Classification",
+      nav,
+      add_classification,
+    });
+    return;
+  }
+  next();
+};
 
-validate.checkVehicleData = async (req, res, next) => {
+//Check data and return errors or continue to add new inventory
+validate.checkInventoryData = async (req, res, next) => {
   const {
-    inv_price,
-    inv_miles,
-    classification_id,
-    inv_description,
-    inv_image,
-    inv_thumbnail,
-    inv_color,
     inv_make,
     inv_model,
     inv_year,
-  } = req.body
-  // let classification = await invModel.getClassifications()
-  let errors = validationResult(req)
-  if (!errors.isEmpty()) {
-    let nav = await utilities.getNav()
-    let classDropDown = await utilities.buildClassDropdown()
-    res.render("inventory/add-inventory", {
-      errors,
-      title: "Add New Vehicle",
-      nav,
-      classDropDown,
-      inv_price,
-      inv_miles,
-      classification_id,
-      inv_description,
-      inv_image,
-      inv_thumbnail,
-      inv_color,
-      inv_make,
-      inv_model,
-      inv_year,
-    })
-    return
-  }
-  next()
-}
-
-//makes sure that the value entered for updating a vehicle are correct
-validate.checkUpdateData = async (req, res, next) => {
-  const {
-    inv_price,
-    inv_miles,
-    classification_id,
     inv_description,
     inv_image,
     inv_thumbnail,
+    inv_price,
+    inv_miles,
     inv_color,
-    inv_make,
-    inv_model,
-    inv_year,
-    inv_id,
-  } = req.body
-  let errors = validationResult(req)
+  } = req.body;
+
+  let errors = [];
+  errors = validationResult(req);
   if (!errors.isEmpty()) {
-    let nav = await utilities.getNav()
-    let classDropDown = await utilities.buildClassDropdown()
-    res.render("inventory/edit-inventory", {
+    let nav = await utilities.getNav();
+    let selectList = await utilities.getClassifications();
+    res.render("./inventory/add-inventory", {
       errors,
-      title: "Edit: " + inv_make + " " + inv_model,
+      title: "Add Inventory",
       nav,
-      classDropDown,
-      inv_price,
-      inv_miles,
-      classification_id,
-      inv_description,
-      inv_image,
-      inv_thumbnail,
-      inv_color,
+      selectList,
       inv_make,
       inv_model,
       inv_year,
-      inv_id,
-    })
-    return
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+    });
+    return;
   }
-  next()
-}
+  next();
+};
+
 
 module.exports = validate
