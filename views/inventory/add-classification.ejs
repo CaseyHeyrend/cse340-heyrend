@@ -5,7 +5,8 @@
     
     <!-- message block: -->
     <%- messages() %>
-    
+
+    <!-- Add Classification View -->
     <% if (errors) { %>
       <ul class="error">
      <% errors.array().forEach(error => { %>
@@ -14,22 +15,19 @@
      </ul>
     <% } %>
     
-    <div class="body-div">
-      <p class="p-font">All Fields are required</p>
-      <form action="/inv/add-classification" method="post" class="account-form">
-        <label for="classification_name">Classification Name:</label>
-    
-        <input
-          type="text"
-          id="classification_name"
-          class="input"
-          name="classification_name"
-          pattern="^[A-Za-z]+$"
-          required />
-    
-        <span class="form-span p-font"
-          >Name must be in alphabetic characters only.</span
-        >
-        <button type="submit" class="form-button">Add Classification</button>
-      </form>
-    </div>
+<div class="form-box">
+  <form action="/inv/add-classification" method="post">
+      <div class="inv-label">
+          <label for="classification_name">Classification Name: </label>
+          <p>Name must be alphabetic characters only.</p>
+          <input id="classification_name" name="add_classification" type="text" placeholder="Add the Classification Name" 
+              required 
+              value="<%= locals.add_classification %>"
+              pattern="[a-zA-Z]*" > 
+      </div>
+
+      <button type="submit" class="form-btn">Add Classification</button>
+
+
+  </form>
+</div>
