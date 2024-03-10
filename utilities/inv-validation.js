@@ -22,6 +22,7 @@ validate.classificationRules = () => {
       }),
   ];
 };
+
 //Inventory Data Rules
 validate.inventoryRules = () => {
   return [
@@ -40,22 +41,22 @@ validate.inventoryRules = () => {
       .trim()
       .isLength({ max: 4, min: 4 })
       .withMessage("Please enter a valid vehicle year."),
-    // vehicle description
+    // vehicle description Long or short
     body("inv_description")
       .trim()
       .isLength({ max: 150, min: 1 })
       .withMessage("Please enter a valid vehicle description."),
-    // vehicle image
+    // vehicle image to see what it looks like
     body("inv_image")
       .trim()
       .isLength({ min: 3 })
       .withMessage("Please enter a valid vehicle image."),
-    // vehicle thumbnail
+    // vehicle thumbnail small version of image
     body("inv_thumbnail")
       .trim()
       .isLength({ min: 3 })
       .withMessage("Please enter a valid vehicle thumbnail."),
-    // vehicle price
+    // vehicle price the cost of the vehicle
     body("inv_price")
       .trim()
       .isLength({ min: 1 })
@@ -110,7 +111,6 @@ validate.checkInventoryData = async (req, res, next) => {
     let nav = await utilities.getNav();
     let selectList = await utilities.getClassifications();
     res.render("./inventory/add-inventory", {
-      errors,
       title: "Add Inventory",
       nav,
       selectList,
