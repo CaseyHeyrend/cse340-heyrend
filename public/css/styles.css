@@ -12,6 +12,7 @@
   --primary-background: #fff;
   --body-font: Inter;
   --main-accent: #01b0d3;
+  --management-accent:#0094b2;
 }
 /* End of Colors */
 /* General Style */
@@ -349,7 +350,7 @@ select {
 }
 
 select:hover{
-  background-color: rgb(2, 117, 121);
+  background-color: var(--management-accent);
   color: white;
 }
 
