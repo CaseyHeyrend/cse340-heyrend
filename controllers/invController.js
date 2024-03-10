@@ -3,6 +3,7 @@ const utilities = require("../utilities/")
 
 const invCont = {}
 
+
 /* ***************************
  *  Build inventory by classification view
  * ************************** */
@@ -18,6 +19,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
     grid,
   })
 }
+
 /* ***************************
 *   Build vehicle detail view
 * *************************** */
@@ -35,7 +37,6 @@ invCont.buildVehicleDetailView = async function (req, res, next) {
     wrap,
   })
 }
-
 
 /* ****************************************
 * Build the mangement view HTML
@@ -60,6 +61,7 @@ invCont.buildAddClassification = async function(req, res, next){
    error: null,
   }) 
 }
+
 /* ****************************************
 * Build the Add inventory view HTML
 * *************************************** */
@@ -74,6 +76,7 @@ invCont.buildAddInventory = async function(req, res, next){
     error: null,
   })
 }
+
 /* ****************************************
 * Build the Add classification 
 * *************************************** */
@@ -82,8 +85,7 @@ invCont.AddNewClassification = async function(req, res, next){
   const { add_classification } = req.body;
   const classResult = await invModel.addClassification(add_classification);
   if (classResult) {
-    req.flash(
-      "notice",
+    req.flash("notice",
       `Congratulations, you\'ve created the ${add_classification} classification!`,
     );
     res.status(201).render("./inventory/management", {
@@ -102,40 +104,19 @@ invCont.AddNewClassification = async function(req, res, next){
     });
   }
 };
+
 /* ****************************************
 * Build the Add inventory to the database
 * *************************************** */
 invCont.AddNewInventory = async function(req, res, next){
   let nav = await utilities.getNav();
-  const {
-    inv_make,
-    inv_model,
-    inv_year,
-    inv_description,
-    inv_image,
-    inv_thumbnail,
-    inv_price,
-    inv_miles,
-    inv_color,
-    classification_id,
-  } = req.body;
+  const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id, } 
+  = req.body;
 
-  const invResult = await invModel.addInventory(
-    inv_make,
-    inv_model,
-    inv_year,
-    inv_description,
-    inv_image,
-    inv_thumbnail,
-    inv_price,
-    inv_miles,
-    inv_color,
-    classification_id,
-  );
+  const invResult = await invModel.addInventory( inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id,);
 
   if (invResult) {
-    req.flash(
-      "notice",
+    req.flash("notice",
       `Congratulations, you\'ve added ${inv_make} ${inv_model} to the inventory!\n`,
     );
     res.status(201).render("./inventory/management", {
@@ -144,8 +125,7 @@ invCont.AddNewInventory = async function(req, res, next){
       errors: null,
     });
   } else {
-    req.flash(
-      "notice",
+    req.flash("notice",
       "Sorry, there was an issue adding a new vehicle. Please try again.",
     );
     res.status(501).render("./inventory/add-inventory", {
@@ -155,10 +135,6 @@ invCont.AddNewInventory = async function(req, res, next){
     });
   }
 };
-
-
-
-
 
 
 module.exports = invCont
