@@ -92,8 +92,7 @@ invCont.AddNewClassification = async function(req, res, next){
       errors: null,
     });
   } else {
-    req.flash(
-      "notice",
+    req.flash("notice",
       "Sorry, that classification did not work. Please try again",
     );
     res.status(501).render("./inventory/add-classification", {
