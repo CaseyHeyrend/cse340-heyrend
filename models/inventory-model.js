@@ -4,7 +4,7 @@ const pool = require("../database/")
  *  Get all classification data
  * ************************** */
 async function getClassifications(){
-  return await pool.query("SELECT * FROM public.classification ORDER BY classification_name")
+  return await pool.query("SELECT * FROM public.classification ORDER BY classification_name");
 }
 
 //module.exports = {getClassifications}
@@ -19,11 +19,11 @@ async function getInventoryByClassificationId(classification_id) {
       JOIN public.classification AS c 
       ON i.classification_id = c.classification_id 
       WHERE i.classification_id = $1`,
-      [classification_id]
-    )
-    return data.rows
+      [classification_id],
+    );
+    return data.rows;
   } catch (error) {
-    console.error("getclassificationsbyid error " + error)
+    console.error("getclassificationsbyid error " + error);
   }
 }
 /* ************************************
@@ -35,10 +35,10 @@ async function getInventoryByInventoryId(inv_id) {
           `SELECT * FROM public.inventory
           WHERE inv_id = $1`,
           [inv_id]
-      )
-      return data.rows[0]
+      );
+      return data.rows[0];
   } catch (error) {
-      console.error("getinventorybyid error " + error)
+      console.error("getinventorybyid error " + error);
   }
 }
 /* ************************************
@@ -70,8 +70,7 @@ async function checkExistingClassification(add_classification) {
 * ********************************** */
 async function checkExistingClassification(add_classification) {
   try {
-    const sql =
-      "SELECT * FROM public.classification WHERE classification_name = $1";
+    const sql ="SELECT * FROM public.classification WHERE classification_name = $1";
     const classification = await pool.query(sql, [add_classification]);
     return classification.rowCount;
   } catch (error) {
