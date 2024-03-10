@@ -103,7 +103,7 @@ invCont.AddNewClassification = async function(req, res, next){
   }
 };
 /* ****************************************
-* Build the Add inventory
+* Build the Add inventory to the database
 * *************************************** */
 invCont.AddNewInventory = async function(req, res, next){
   let nav = await utilities.getNav();
