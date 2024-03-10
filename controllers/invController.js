@@ -66,7 +66,7 @@ invCont.buildAddClassification = async function(req, res, next){
 invCont.buildAddInventory = async function(req, res, next){
   const vehicle_id = req.params.vehicleId
   let nav = await utilities.getNav();
-  let selectList = await utilities.getClassifications();
+  let selectList = await utilities.getClassification();
   res.render("./inventory/add-inventory.ejs", {
     title: "Add New Inventory",
     nav,

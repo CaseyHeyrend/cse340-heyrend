@@ -108,7 +108,7 @@ validate.checkInventoryData = async (req, res, next) => {
   errors = validationResult(req);
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav();
-    let selectList = await utilities.getClassification();
+    let selectList = await utilities.getClassifications();
     res.render("./inventory/add-inventory", {
       errors,
       title: "Add Inventory",
