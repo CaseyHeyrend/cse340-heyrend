@@ -370,7 +370,7 @@ select:hover{
   justify-content: center;
 }
 .management a:hover {
-  background-color: rgb(2, 146, 122);
+  background-color: #0094b2;;
   color: white;
 }
 
