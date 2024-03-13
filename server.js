@@ -19,6 +19,8 @@ const session = require("express-session")
 const pool = require('./database/')
 const accountRoute = require("./routes/accountRoute")
 const bodyParser = require("body-parser")
+//Week 10
+const cookieParser = require("cookie-parser")
 
 
 /* ***********************
@@ -34,7 +36,8 @@ app.use(session({
   saveUninitialized: true,
   name: 'sessionId',
 }))
-
+//Week 10
+app.use(cookieParser())
 // Express Messages Middleware
 app.use(require('connect-flash')())
 app.use(function(req, res, next){
