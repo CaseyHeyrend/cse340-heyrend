@@ -4,7 +4,9 @@ const pool = require("../database/")
  *  Get all classification data
  * ************************** */
 async function getClassifications(){
-  return await pool.query("SELECT * FROM public.classification ORDER BY classification_name");
+  return await pool.query(
+    "SELECT * FROM public.classification ORDER BY classification_name"
+    );
 }
 //module.exports = {getClassifications}
 
@@ -48,19 +50,6 @@ async function addClassification(add_classification) {
   try {
     const sql = "INSERT INTO classification (classification_name) VALUES ($1)";
     return await pool.query(sql, [add_classification]);
-  } catch (error) {
-    return error.message;
-  }
-}
-
-/* ************************************
-* A check function to see classification name is already in the database
-* ********************************** */
-async function checkExistingClassification(add_classification) {
-  try {
-    const sql ="SELECT * FROM public.classification WHERE classification_name = $1";
-    const classification = await pool.query(sql, [add_classification]);
-    return classification.rowCount;
   } catch (error) {
     return error.message;
   }
