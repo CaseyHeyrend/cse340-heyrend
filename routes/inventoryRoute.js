@@ -30,9 +30,7 @@ router.post(
 // Add-Inventory View
 router.post(
     "/add-inventory",
-    regValidate.inventoryRules(),
-    regValidate.checkInventoryData,
-    utilities.handleErrors(invController.AddNewInventory),
+    regValidate.inventoryRules(), regValidate.checkInventoryData, utilities.handleErrors(invController.AddNewInventory),
   );
 
 module.exports = router;
