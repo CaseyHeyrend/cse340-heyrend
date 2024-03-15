@@ -11,6 +11,10 @@ async function getClassifications(){
 //module.exports = {getClassifications}
 
 /* ***************************
+ *  Upgrade
+ * ************************** */
+
+/* ***************************
  *  Get all inventory items and classification_name by classification_id
  * ************************** */
 async function getInventoryByClassificationId(classification_id) {
@@ -46,15 +50,18 @@ async function getInventoryByInventoryId(inv_id) {
 /* ************************************
 * Funtion to insert new classification into the database
 * ********************************** */
-async function addClassification(add_classification) {
+//async function addClassification(add_classification) {try {const sql = "INSERT INTO classification (classification_name) VALUES ($1)";return await pool.query(sql, [add_classification]);} catch (error) {return error.message; }}
+
+// for the management to add a new classification type
+async function addNewClassification(classification_name) {
   try {
-    const sql = "INSERT INTO classification (classification_name) VALUES ($1)";
-    return await pool.query(sql, [add_classification]);
+    const sql =
+      "INSERT INTO classification(classification_name)VALUES ($1) RETURNING *"
+    return await pool.query(sql, [classification_name])
   } catch (error) {
-    return error.message;
+    return error.message
   }
 }
-
 /* ************************************
 * A check function to see classification name is already in the database
 * ********************************** */
@@ -88,4 +95,11 @@ async function addInventory( inv_make, inv_model, inv_year, inv_description, inv
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getInventoryByInventoryId, addClassification, checkExistingClassification, getClassificationsById, addInventory,};
+module.exports = {
+  getClassifications, 
+  getInventoryByClassificationId, 
+  getInventoryByInventoryId, 
+  //addClassification, 
+  addNewClassification,
+  checkExistingClassification, 
+  getClassificationsById,};
