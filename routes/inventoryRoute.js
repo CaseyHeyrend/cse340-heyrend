@@ -5,6 +5,7 @@ const invController = require("../controllers/invController")
 const utilities = require("../utilities/");
 const regValidate = require("../utilities/inv-validation");
 
+
 // Route to build inventory by classification view
 router.get("/type/:classificationId", invController.buildByClassificationId);
 
@@ -32,5 +33,7 @@ router.post(
     "/add-inventory",
     regValidate.inventoryRules(), regValidate.checkInventoryData, utilities.handleErrors(invController.AddNewInventory),
   );
+  router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
 
 module.exports = router;
