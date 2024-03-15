@@ -9,14 +9,6 @@
 <!-- message block: -->
 <%- messages()  %>
 
-
-<% if (errors) { %>
-  <ul class="notice">
- <% errors.array().forEach(error => { %>
-   <li><%= error.msg %></li>
-<%  }) %>
- </ul>
-<% } %>
 <!-- Add Inventory View -->
 <div class="form-box">
   <form action="/inv/add-inventory" method="post">
@@ -25,7 +17,6 @@
       </div>
       <div class="inv-label">
           <label for="select_classification">Classification: </label>
-          <%- selectInv %>
       </div>
       <br>
        <div class="inv-label"> 

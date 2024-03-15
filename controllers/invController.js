@@ -18,8 +18,9 @@ invCont.buildByClassificationId = async function (req, res, next) {
 };
 
 /* ***************************
-*   Build vehicle detail view
+*   Build vehicle detail view 
 * *************************** */
+//single Page
 invCont.buildVehicleDetailView = async function (req, res, next) {
   const inv_id = req.params.vehicleId
   const data = await invModel.getInventoryByInventoryId(inv_id)
@@ -30,14 +31,22 @@ invCont.buildVehicleDetailView = async function (req, res, next) {
   const inv_model = data.inv_model
   res.render("./inventory/detail.ejs", {title: inv_year + " " + inv_make + " " + inv_model, nav, wrap,})
 };
+/* ***************************
+*   Build Upgrade view 
+* *************************** */
+
 
 /* ***************************
 * Build the Mangement view 
 * *************************** */
-invCont.buildManagement = async function(req, res, next){
+invCont.buildManagement = async function (req, res, next) {
    let nav = await utilities.getNav() 
 
-   res.render("./inventory/management.ejs", {title: "CSE Motor Vehicle Management Menu", nav, error: null,}) 
+   res.render("./inventory/management", {
+    title: "CSE Motor Vehicle Management Menu", 
+    nav, 
+    error: null,
+  }) 
 };
 
 
@@ -52,11 +61,11 @@ invCont.buildAddClassification = async function(req, res, next){
 /* ****************************************
 * Build the Add Inventory view
 * *************************************** */
-invCont.buildAddInventory = async function(req, res, next){
-  const vehicle_id = req.params.vehicleId
-  let nav = await utilities.getNav();
-  let selectInv = await utilities.getClassifications();//The Problem Child for add inventory
+invCont.buildAddInventory = async function (req, res, next) {
+  let nav = await utilities.getNav()
   res.render("./inventory/add-inventory", {title: "Add New Inventory",nav,error: null,})
+  //const vehicle_id = req.params.vehicleId
+  //let selectInv = await utilities.getClassifications();//The Problem Child for add inventory 
 };
 
 /* ****************************************
