@@ -6,11 +6,7 @@ const accountController = require("../controllers/accountController")
 const regValidate = require('../utilities/account-validation')
 
 // Login
-router.get(
-  "/",
-  utilities.checkLogin,
-  utilities.handleErrors(accountController.buildManagement)
-  )
+router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildManagement))
 
 // Route to build my account view
 router.get("/login", accountController.buildLogin)
