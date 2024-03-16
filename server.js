@@ -36,8 +36,7 @@ app.use(session({
   saveUninitialized: true,
   name: 'sessionId',
 }))
-//Week 10
-app.use(cookieParser())
+
 // Express Messages Middleware
 app.use(require('connect-flash')())
 app.use(function(req, res, next){
@@ -48,6 +47,8 @@ app.use(function(req, res, next){
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
+//Week 10
+app.use(cookieParser())
 app.use(utilities.checkJWTToken)
 
 /* ***********************<
@@ -60,7 +61,8 @@ app.set("layout", "./layouts/layout") // not at views root
 /* ***********************
  * Routes
  *************************/
-app.use(utilities.handleErrors(static))
+app.use(require("./routes/static"))
+//app.use(utilities.handleErrors(static))
 //app.get("/", function(req, res){res.render("index", {title: "Home"})})
 //app.get("/", baseController.buildHome)
 
