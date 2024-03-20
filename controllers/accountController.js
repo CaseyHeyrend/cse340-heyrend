@@ -28,6 +28,19 @@ async function buildRegister(req, res, next) {
   })
 }
  
+/* ************************************
+ * Deliver Account view
+ * Unit 5 deliver account team-activity
+ * ***********************************/
+async function buildManagement(req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("account/management", {
+    title: "Account Management",
+    nav,
+    errors: null,
+  })
+}
+
 /* ****************************************
 *  Process Registration
 * *************************************** */
@@ -75,26 +88,7 @@ async function registerAccount(req, res) {
     })
   }
 }
-/* ************************************
- * Deliver Account view
- * Unit 5 deliver account team-activity
- * ***********************************/
-async function buildManagement(req, res, next) {
-  let nav = await utilities.getNav()
-  res.render("/account/management", 
-  {title: "Account Management",
-  nav,
-  errors: null,
-})
-}
-// build management page for the account
-async function buildManagement(req, res, next) {
-  let nav = await utilities.getNav()
-  res.render("account/management", {
-    title: "Account Management",
-    nav,
-  })
-}
+
 
 /* ****************************************
  *  Process login request
