@@ -91,8 +91,7 @@ async function getClassificationsById() {
 * Insert new inventory item into the database
 * ********************************** */
 //for management to add a new vehicle type
-async function addNewVehicle( inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id,
-  ){
+async function addNewVehicle( inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id,){
   try {
     const sql =
       "INSERT INTO public.inventory (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
@@ -103,17 +102,7 @@ async function addNewVehicle( inv_make, inv_model, inv_year, inv_description, in
 }
 //for management to update a vehicle in the inventory
 async function updateInventory(
-  inv_id,
-  inv_make,
-  inv_model,
-  inv_year,
-  inv_description,
-  inv_image,
-  inv_thumbnail,
-  inv_price,
-  inv_miles,
-  inv_color,
-  classification_id
+  inv_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id
 ) {
   try {
     const sql =
