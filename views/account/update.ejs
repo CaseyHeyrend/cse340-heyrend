@@ -1,6 +1,19 @@
 <!-- content heading -->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else { res.redirect('/') } %>
 
 <!-- Message Block -->
+<%- messages() %> <% if (errors) { %>
+    <ul class="error">
+      <% errors.array().forEach(error => { %>
+      <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+    <% } %>
 
 
 <!-- Update form -->
+<div>
+    <h2>Account Update</h2>
+</div>
