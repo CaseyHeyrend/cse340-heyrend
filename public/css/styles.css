@@ -281,6 +281,20 @@ section {
   text-decoration: none;
   color: black;
 }
+/* Account Form */
+.account-form {
+  background-color: rgba(var(--accent));
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--heading-font);
+}
+.account-form label {
+  text-align: left;
+  margin-top: 15px;
+  padding: 0 15px;
+  font-size: 1.2em;
+}
 /* Login */
 form {
   max-width: 500px;
