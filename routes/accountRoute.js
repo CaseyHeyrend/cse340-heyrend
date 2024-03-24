@@ -5,7 +5,6 @@ const utilities = require("../utilities/")
 const accountController = require("../controllers/accountController")
 const regValidate = require('../utilities/account-validation')
 
-//Get
 
 // Route to build my account view
 router.get("/login", utilities.handleErrors(accountController.buildLogin))
@@ -20,7 +19,6 @@ router.get(
   utilities.handleErrors(accountController.buildManagement)
   )
 
-//Post
 
 // Process the registration data
 router.post(
@@ -33,21 +31,31 @@ router.post(
 // Process the login request
 router.post(
   "/login",
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
   utilities.handleErrors(accountController.accountLogin)
   )
+//Logout 
+router.get("/logout", utilities.handleErrors(accountController.logoutUser))
 
+router.get(
+  "/edit/:account_id",
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
+  utilities.handleErrors(accountController.buildAccountEdit)
+)
+router.post(
+  "/updateaccount",
+  regValidate.updateAcctRules(),
+  regValidate.checkUpdateData,
+  utilities.handleErrors(accountController.updateAccount)
+)
 
-
-// Process the login attempt
-//router.post("/login",(req, res) => {res.status(200).send('login process') })
-//router.post("/login",regValidate.loginRules(),regValidate.checkLoginData,utilities.handleErrors(accountController.buildManagement))
-
-//router.post(
-  //"/login",
-  //regValidate.loginRules(),
-  //regValidate.checkLoginData,
-  //utilities.handleErrors(accountController.accountLogin))
-
-//router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildManagement))
+router.post(
+  "/updatepassword",
+  regValidate.updatePassRules(),
+  regValidate.checkUpdatePass,
+  utilities.handleErrors(accountController.updatePassword)
+)
 
 module.exports = router;
