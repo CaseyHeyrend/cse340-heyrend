@@ -1,18 +1,17 @@
-const invModel = require("../models/inventory-model")
-const jwt = require("jsonwebtoken")
-require("dotenv").config()
-const Util = {}
+const invModel = require("../models/inventory-model");
+const Util = {};
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
 Util.getNav = async function (req, res, next) {
-  let data = await invModel.getClassifications()
-  console.log(data.rows)
-  let list = "<ul>"
-  list += '<li><a href="/" title="Home page">Home</a></li>'
+  let data = await invModel.getClassifications();
+  let list = "<ul>";
+  list += '<li><a href="/" title="Home page">Home</a></li>';
   data.rows.forEach((row) => {
-    list += "<li>"
+    list += "<li>";
     list +=
       '<a href="/inv/type/' +
       row.classification_id +
@@ -20,114 +19,136 @@ Util.getNav = async function (req, res, next) {
       row.classification_name +
       ' vehicles">' +
       row.classification_name +
-      "</a>"
-    list += "</li>"
-  })
-  list += "</ul>"
-  return list
-}
+      "</a>";
+    list += "</li>";
+  });
+  list += "</ul>";
+  return list;
+};
 
 /* **************************************
-* Build the classification view HTML
-* ************************************ */
-Util.buildClassificationGrid = async function(data){
-  let grid
-  if(data.length > 0){
-    grid = '<ul id="inv-display">'
-    data.forEach(vehicle => { 
-      grid += '<li>'
-      grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
-      + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
-      + 'details"><img src="' + vehicle.inv_thumbnail 
-      +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
-      +' on CSE Motors" /></a>'
-      grid += '<div class="namePrice">'
-      grid += '<hr />'
-      grid += '<h2>'
-      grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
-      + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
-      + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
-      grid += '</h2>'
-      grid += '<span>$' 
-      + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
-      grid += '</div>'
-      grid += '</li>'
-    })
-    grid += '</ul>'
-  } else { 
-    grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
-  }
-  return grid
-}
-
-/* ****************************************
-* Build the inventory detail view HTML
-* *************************************** */
-Util.buildVehicleWrap = async function(data) {
-  let wrap
-  if (data) {
-    wrap = '<div id="inv-wrap">'
-    wrap += '<img src="' + data.inv_image + '" alt="' + data.inv_make + " " + data.inv_model
-    wrap += ' on CSE Motors">'
-    wrap += '<span>$' + new Intl.NumberFormat('en-US').format(data.inv_price) + '</span>'
-    wrap += '<table>'
-    wrap += '<tr><th>Mileage</th><th>Color</th></tr>'
-    wrap += '<tr><td>' + new Intl.NumberFormat('en-US').format(data.inv_miles) + '</td><td>' + data.inv_color + '</td></tr>'
-    wrap += '<tr><th colspan="2">Description</th></tr>'
-    wrap += '<tr><td colspan="2">' + data.inv_description + '</td></tr>'
-    wrap += '</table>'
-    wrap += '</div>'
+ * Build the classification view HTML
+ * ************************************ */
+Util.buildClassificationGrid = async function (data) {
+  let grid;
+  if (data.length > 0) {
+    grid = '<ul id="inv-display">';
+    data.forEach((vehicle) => {
+      grid += "<li>";
+      grid +='<a href="../../inv/detail/' +
+        vehicle.inv_id +'" title="View ' 
+        +vehicle.inv_make +" " +
+        vehicle.inv_model +'details"><img src="' +
+        vehicle.inv_thumbnail +'" alt="Image of ' +
+        vehicle.inv_make +" " +
+        vehicle.inv_model +' on CSE Motors" /></a>';
+      grid += '<div class="namePrice">';
+      grid += "<hr />";
+      grid += "<h2>";
+      grid +='<a href="../../inv/detail/' +
+        vehicle.inv_id +'" title="View ' +
+        vehicle.inv_make +" " +
+        vehicle.inv_model +' details">' +
+        vehicle.inv_make +" " +
+        vehicle.inv_model +"</a>";
+      grid += "</h2>";
+      grid +="<span>$" +
+        new Intl.NumberFormat("en-US").format(vehicle.inv_price) +"</span>";
+      grid += "</div>";
+      grid += "</li>";
+    });
+    grid += "</ul>";
   } else {
-    wrap += '<p class="notice"> Sorry, vehicle not found.</p>'
+    grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>';
   }
-  return wrap
-}
+  return grid;
+};
 
+/* **************************************
+ * Build the detail view HTML
+ * ************************************ */
+Util.buildDetailView = async function (vehicle) {
+  const formatter = new Intl.NumberFormat("en-US");
+
+  const html = `
+    <div class="vehicle-detail">
+      <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${
+    vehicle.inv_model
+  }" />
+      <div class="vehicle-detail-text">
+        <p>Year: ${vehicle.inv_year}</p>
+        <p>Price: $${formatter.format(vehicle.inv_price)}</p>
+        <p>Mileage: ${formatter.format(vehicle.inv_miles)} miles</p>
+        <p>Color: ${vehicle.inv_color}</p>
+      </div>
+    </div>
+  `;
+  return html;
+};
+
+/* **************************************
+ * Build the classification dropdown
+ * ************************************ */
+Util.buildDropdown = async function () {
+  let classifications = await invModel.getClassifications();
+  const dropdownOptions = classifications.rows
+    .map((classification) => {
+      return `<option value="${classification.classification_id}">${classification.classification_name}</option>`;
+    })
+    .join("");
+
+  const dropdown = `
+    <select id="classification-id" name="classification_id">
+      ${dropdownOptions}
+    </select>
+  `;
+
+  return dropdown;
+};
+
+/* **************************************
+ * Middleware for handling errors
+ * ************************************ */
+Util.handleError = (fn) => (req, res, next) =>
+  Promise.resolve(fn(req, res, next)).catch(next);
 
 /* ****************************************
- * Middleware For Handling Errors
- * Wrap other function in this for 
- * General Error Handling
+ * Middleware to check JWT token validity
  **************************************** */
-Util.handleErrors = fn => (req, res, next) => 
-Promise.resolve(fn(req, res, next)).catch(next)
-
-
-/* ****************************************
-* Middleware to check token validity
-**************************************** */
 Util.checkJWTToken = (req, res, next) => {
   if (req.cookies.jwt) {
-   jwt.verify(
-    req.cookies.jwt,
-    process.env.ACCESS_TOKEN_SECRET,
-    function (err, accountData) {
-     if (err) {
-      req.flash("Please log in")
-      res.clearCookie("jwt")
-      return res.redirect("/account/login")
-     }
-     res.locals.accountData = accountData
-     res.locals.loggedin = 1
-     next()
-    })
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash("Please log in");
+          res.clearCookie("jwt");
+          return res.redirect("/account/login");
+        }
+        res.locals.accountData = accountData;
+        res.locals.loggedin = 1;
+        next();
+      }
+    );
   } else {
-   next()
+    next();
   }
- }
- 
- /* ****************************************
- *  Check Login
- * ************************************ */
- Util.checkLogin = (req, res, next) => {
+};
+
+/* ****************************************
+ * Middleware to check if user is logged in
+ **************************************** */
+Util.checkLogin = (req, res, next) => {
   if (res.locals.loggedin) {
-    next()
+    next();
   } else {
-    req.flash("notice", "Please log in.")
-    return res.redirect("/account/login")
+    req.flash("notice", "Please log in");
+    return res.redirect("/account/login");
   }
- }
- /* ****************************************
+};
+
+/* ****************************************
  * Middleware to check if user is Employee or Admin from JWT Token
  **************************************** */
 Util.checkAdmin = (req, res, next) => {
@@ -146,5 +167,4 @@ Util.checkAdmin = (req, res, next) => {
   }
 };
 
-
-module.exports = Util
+module.exports = Util;

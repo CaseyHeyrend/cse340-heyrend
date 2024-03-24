@@ -1,112 +1,123 @@
-const pool = require("../database/")
+const pool = require("../database/");
 
-/* ***************************
- *  Get all classification data
- * ************************** */
-async function getClassifications(){
+/* ********************
+ * Get all the classification data
+ * ********************/
+async function getClassifications() {
   return await pool.query(
     "SELECT * FROM public.classification ORDER BY classification_name"
-    );
+  );
 }
-//module.exports = {getClassifications}
-
-/* ***************************
- *  Get Upgrades
- * ************************** */
 
 /* ***************************
  *  Get all inventory items and classification_name by classification_id
  * ************************** */
 async function getInventoryByClassificationId(classification_id) {
   try {
-    const data = await pool.query(
-      `SELECT * FROM public.inventory AS i 
-      JOIN public.classification AS c 
-      ON i.classification_id = c.classification_id 
-      WHERE i.classification_id = $1`,
-      [classification_id],
-    );
+    const data = await pool.query(`SELECT * FROM public.inventory AS i JOIN public.classification AS c ON i.classification_id = c.classification_id WHERE i.classification_id = $1`,[classification_id]);
     return data.rows;
   } catch (error) {
-    console.error("getclassificationsbyid error " + error);
-  }
-}
-/* ***************************
- *  Get Upgrades 
- * ************************** */
-
-/* ************************************
-* Get inventory detail by inventory id
-* ********************************** */
-async function getInventoryByInventoryId(inv_id) {
-  try {
-      const data = await pool.query(
-          `SELECT * FROM public.inventory WHERE inv_id = $1`,
-          [inv_id],
-      );
-      return data.rows[0];
-  } catch (error) {
-      console.error("getinventorybyid error " + error);
-  }
-}
-/* ***************************
- *  Get Upgrades
- * ************************** */
-
-/* ************************************
-* Funtion to insert new classification into the database
-* ********************************** */
-//async function addClassification(add_classification) {try {const sql = "INSERT INTO classification (classification_name) VALUES ($1)";return await pool.query(sql, [add_classification]);} catch (error) {return error.message; }}
-
-// for the management to add a new classification type
-async function addNewClassification(classification_name) {
-  try {
-    const sql =
-      "INSERT INTO classification(classification_name)VALUES ($1) RETURNING *"
-    return await pool.query(sql, [classification_name])
-  } catch (error) {
-    return error.message
-  }
-}
-/* ************************************
-* A check function to see classification name is already in the database
-* ********************************** */
-async function checkExistingClassification(add_classification) {
-  try {
-    const sql ="SELECT * FROM public.classification WHERE classification_name = $1";
-    const classification = await pool.query(sql, [add_classification]);
-    return classification.rowCount;
-  } catch (error) {
-    return error.message;
+    console.error("getInventoryByClassificationId error " + error);
   }
 }
 
-/* ************************************
-* Funtion to get the classifications by id
-* ********************************** */
-async function getClassificationsById() {
-  return await pool.query("SELECT * FROM public.classification ORDER BY classification_name",);
-}
-/* ************************************
-* Insert new inventory item into the database
-* ********************************** */
-//for management to add a new vehicle type
-async function addNewVehicle( inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id,){
+/* ********************
+ * Get vehicle detail data by inv_id
+ * ********************/
+async function getInventoryItemById(inv_id) {
   try {
-    const sql =
-      "INSERT INTO public.inventory (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
-    return await pool.query(sql, [inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id,]);
+    const data = await pool.query(
+      `SELECT * FROM public.inventory WHERE inv_id = $1`,
+      [inv_id]
+    );
+    return data.rows[0];
   } catch (error) {
-    return error.message;
+    console.error("getInventoryItemById error " + error);
   }
 }
-//for management to update a vehicle in the inventory
+
+/* ********************
+ * Function to Add new classification to database
+ * ********************/
+async function addClassification(classification_name) {
+  try {
+    const data = await pool.query(
+      `INSERT INTO public.classification (classification_name) VALUES ($1)`,
+      [classification_name]
+    );
+    return data;
+  } catch (error) {
+    console.error("addClassification error " + error);
+  }
+}
+
+/* ********************
+ * Function to Add new inventory item to database
+ * ********************/
+async function addInventory(
+  inv_make,
+  inv_model,
+  inv_year,
+  inv_description,
+  inv_image,
+  inv_thumbnail,
+  inv_price,
+  inv_miles,
+  inv_color,
+  classification_id
+) {
+  try {
+    const data = await pool.query(
+      `INSERT INTO public.inventory (
+        inv_make,
+        inv_model,
+        inv_year,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_miles,
+        inv_color,
+        classification_id
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+      [
+        inv_make,
+        inv_model,
+        inv_year,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_miles,
+        inv_color,
+        classification_id,
+      ]
+    );
+    return data;
+  } catch (error) {
+    console.error("addInventory error " + error);
+  }
+}
+
+/* ********************
+ * Function to Update inventory item in database
+ * ********************/
 async function updateInventory(
-  inv_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id
+  inv_id,
+  inv_make,
+  inv_model,
+  inv_year,
+  inv_description,
+  inv_image,
+  inv_thumbnail,
+  inv_price,
+  inv_miles,
+  inv_color,
+  classification_id
 ) {
   try {
     const sql =
-      "UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_description = $3, inv_image = $4, inv_thumbnail = $5, inv_price = $6, inv_year = $7, inv_miles = $8, inv_color = $9, classification_id = $10 WHERE inv_id = $11 RETURNING *"
+      "UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_year = $3, inv_description = $4, inv_image = $5, inv_thumbnail = $6, inv_price = $7, inv_miles = $8, inv_color = $9, classification_id = $10 WHERE inv_id = $11 RETURNING *";
     const data = await pool.query(sql, [
       inv_make,
       inv_model,
@@ -119,32 +130,24 @@ async function updateInventory(
       inv_color,
       classification_id,
       inv_id,
-    ])
-    return data.rows[0]
+    ]);
+    return data.rows[0];
   } catch (error) {
-    console.error("model error: " + error)
+    console.error("model error: " + error);
   }
 }
 
-//for management to delete a vehicle in the inventory
-async function deleteVehicle(inv_id) {
+/* ********************
+ * Function to Delete item from the database
+ * ********************/
+async function deleteInventory(inv_id) {
   try {
-    const sql = "DELETE FROM inventory WHERE inv_id = $1"
-    const data = await pool.query(sql, [inv_id])
-    return data
+    const sql = "DELETE FROM inventory WHERE inv_id = $1";
+    const data = await pool.query(sql, [inv_id]);
+    return data;
   } catch (error) {
-    console.error("Delete Inventory Error")
+    new Error("Delete Inventory Error");
   }
 }
 
-module.exports = {
-  getClassifications, 
-  getInventoryByClassificationId, 
-  getInventoryByInventoryId, 
-  //addClassification, 
-  addNewClassification,
-  addNewVehicle,
-  checkExistingClassification, 
-  getClassificationsById,
-  updateInventory,
-  deleteVehicle,};
+module.exports = {getClassifications,getInventoryByClassificationId,getInventoryItemById,addClassification,addInventory,updateInventory,deleteInventory,};

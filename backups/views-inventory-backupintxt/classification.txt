@@ -3,8 +3,10 @@
     <h1><%= title %></h1>
     <% } else {
       res.redirect('/')
-    } %><!--a message #--><% if (messages && messages.notice) { %>  <% }%>
-  <p class="flash-message"><%= messages.notice %></p>
+    } %>
+
+<!--a message #-->
+<%# messages() %>
 
 <!-- the inventory items display -->
 

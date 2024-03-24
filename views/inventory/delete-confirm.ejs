@@ -1,69 +1,73 @@
-<!-- Content heading -->
+<!-- Content heading --><!-- message block: -->
 <% if (title) { %>
-    <h1><%= title %></h1>
-    <% } else { res.redirect('/') } %>
+  <h1><%= title %></h1>
+  <% } else { res.redirect('/') } %> <% if (messages && messages.notice) { %>
+  <p class="flash-message"><%= messages.notice %></p>
+  <% } %> <% if (errors) { %>
+  <ul class="notice">
+    <% errors.array().forEach(error => { %>
+    <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+  <% } %>
+
+<!-- confirm delete block: -->
+  <p>Confirm Deletion - The delete is permanent.</p>
     
-    <!-- message block: -->
-    <%- messages() %> 
-    <% if (errors) { %>
-    <ul class="error">
-      <% errors.array().forEach(error => { %>
-      <li><%= error.msg %></li>
-      <% }) %>
-    </ul>
-    <% } %>
+    <form
+      class="management-form inventory-form"
+      action="/inv/delete-inventory"
+      method="POST"
+      id="deleteForm"
+    >
+      <label for="inv-make">Make:</label>
+      <input
+        type="text"
+        id="inv-make"
+        name="inv_make"
+        required
+        value="<%= locals.inv_make %>"
+        readonly
+      />
     
-    <div>
-      <p>All Fields are required</p>
-      <form action="/inv/delete" method="post" class="account-form">
+      <label for="inv-model">Model:</label>
+      <input
+        type="text"
+        id="inv-model"
+        name="inv_model"
+        required
+        value="<%= locals.inv_model %>"
+        readonly
+      />
     
-        <label for="inv_make">Make: </label>
-        <input
-          type="text"
-          id="inv_make"
-          class="input"
-          name="inv_make"
-          readonly
-          value="<%= locals.inv_make %>"/>
+      <label for="inv-year">Year:</label>
+      <input
+        type="text"
+        id="inv-year"
+        name="inv_year"
+        pattern="[0-9]{4}"
+        required
+        value="<%= locals.inv_year %>"
+        readonly
+      />
     
+      <label for="inv-price">Price:</label>
+      <input
+        type="text"
+        id="inv-price"
+        name="inv_price"
+        pattern="[0-9]+(\.[0-9]{1,2})?"
+        required
+        value="<%= locals.inv_price %>"
+        readonly
+      />
     
-        <label for="inv_model">Model: </label>
-        <input
-          type="text"
-          id="inv_model"
-          class="input"
-          name="inv_model"
-          readonly
-          value="<%= locals.inv_model %>"
-           />
+      <button type="submit">Delete Vehicle</button>
     
-        <label for="inv_year">Year: </label>
-        <input
-          type="text"
-          id="inv_year"
-          class="input"
-          name="inv_year"
-          readonly
-          value="<%= locals.inv_year %>"
-          />
+      <input
+        type="hidden"
+        name="inv_id"
+        value="<% if(locals.inv_id) { %><%= locals.inv_id %><% } %>"
+      />
+    </form>
     
-    
-        <label for="inv_price">Price: </label>
-        <input
-          type="text"
-          id="inv_price"
-          class="input"
-          name="inv_price"
-          readonly
-          value="<%= locals.inv_price %>"
-           />
-    
-           <p>Confirm deletion - The delete is permanent.</p>
-        <button type="submit" class="form-button">Delete Vehicle</button>
-    
-        <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%=
-        locals.inv_id %>" <% } %>>
-    
-    
-      </form>
-    </div>
