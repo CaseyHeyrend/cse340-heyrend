@@ -12,13 +12,6 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin))
 // Route to build account registration view
 router.get("/register", utilities.handleErrors(accountController.buildRegister))
 
-// Deliver account view
-router.get(
-  "/", 
-  utilities.checkLogin, 
-  utilities.handleErrors(accountController.buildManagement)
-  )
-
 
 // Process the registration data
 router.post(
@@ -35,27 +28,29 @@ router.post(
   regValidate.checkLoginData,
   utilities.handleErrors(accountController.accountLogin)
   )
-//Logout 
-router.get("/logout", utilities.handleErrors(accountController.logoutUser))
-
+// Deliver account view
 router.get(
-  "/edit/:account_id",
-  regValidate.loginRules(),
-  regValidate.checkLoginData,
-  utilities.handleErrors(accountController.buildAccountEdit)
-)
-router.post(
-  "/updateaccount",
-  regValidate.updateAcctRules(),
-  regValidate.checkUpdateData,
-  utilities.handleErrors(accountController.updateAccount)
-)
+  "/", 
+  utilities.checkLogin, 
+  utilities.handleErrors(accountController.buildManagement)
+  );
 
-router.post(
-  "/updatepassword",
-  regValidate.updatePassRules(),
-  regValidate.checkUpdatePass,
-  utilities.handleErrors(accountController.updatePassword)
-)
+  // Account Update route
+  router.get("/update/:id", utilities.checkLogin,accountController.buildAccountUpdate
+  );
+
+  // Handle account update post request
+  router.post(
+    "/update",utilities.checkLogin,regValidate.updateAccountRules(),regValidate.checkUpdateAccountData, accountController.updateAccount
+    );
+ // Change Password route
+ router.post("/change-password",utilities.checkLogin,regValidate.changePasswordRules(),regValidate.checkChangePasswordData,accountController.changePassword
+ );
+// Logout route
+router.get("/logout", (req, res) => {
+  res.clearCookie("jwt");
+  res.redirect("/account/login");
+});
+
 
 module.exports = router;

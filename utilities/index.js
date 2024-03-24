@@ -145,11 +145,6 @@ Util.checkAdmin = (req, res, next) => {
     return res.redirect("/account/login");
   }
 };
-//logout
-Util.logout = (req, res, next) => {
-  res.clearCookie("jwt")
-  res.locals.loggedin = 0
-}
 
 
 module.exports = Util
