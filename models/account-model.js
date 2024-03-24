@@ -62,6 +62,27 @@ async function updateAccount(account_id, account_firstname, account_lastname, ac
     console.error("account-model/updateAccount error: " + error)
   }
 }
+async function checkEmailUpdate(account_email, account_id) {
+  try {
+    const sql =
+      "SELECT * FROM account WHERE account_email = $1 AND account_id != $2"
+    const data = await pool.query(sql, [account_email, account_id])
+    return data.rows[0]
+  } catch (error) {
+    console.error("account-model/checkEmailUpdate error: " + error)
+  }
+}
 
+async function updatePassword(account_id, account_password) {
+  try {
+    const sql =
+      "UPDATE public.account SET  account_password = $1 WHERE account_id = $2 RETURNING *"
 
-module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountByID, updateAccount, }
+    const data = await pool.query(sql, [account_password, account_id])
+    return data.rows[0]
+  } catch (error) {
+    console.error("account-model/updatePassword error: " + error)
+  }
+}
+
+module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountByID, updateAccount,updatePassword, checkEmailUpdate, }

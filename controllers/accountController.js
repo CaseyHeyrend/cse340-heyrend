@@ -121,7 +121,7 @@ async function logoutUser(req, res, next) {
   req.flash("notice", "You're now logged out.")
   return res.redirect("/")
 }
-// update
+// update/edit
 async function buildAccountEdit(req, res, next) {
   let nav = await utilities.getNav()
   const account_id = parseInt(req.params.account_id)
@@ -142,4 +142,96 @@ async function buildAccountEdit(req, res, next) {
     next(error)
   }
 }
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildManagement, logoutUser, buildAccountEdit,}
+// update the account based on the user's input
+async function updateAccount(req, res, next) {
+  let nav = await utilities.getNav()
+  try {
+    const { account_id, account_firstname, account_lastname, account_email } =
+      req.body
+
+    const updatedAcctInfo = await accountModel.updateAccount(
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email
+    )
+
+    if (updatedAcctInfo) {
+    //get the updated full account:
+    const accountData = await accountModel.getAccountByID(account_id)
+    //reset the session with the new information:
+    const token = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, {
+      expiresIn: 3600 * 1000,
+    })
+    res.cookie("jwt", token, { httpOnly: true, maxAge: 3600 * 1000 })
+      req.flash(
+        "notice",
+        `${account_firstname}, your account was successfully updated.`
+      )
+
+      res.redirect("/account/")
+
+    } else {
+      req.flash(
+        "error",
+        `Sorry, ${account_firstname}, the update failed. Please try again.`
+      )
+      res.status(501).render("./account/update", {
+        title: "Edit Account",
+        nav,
+        errors: null,
+        account_id,
+        account_firstname,
+        account_lastname,
+        account_email,
+      })
+    }
+  } catch (error) {
+    error.status = 500
+    console.error(error.status)
+    next(error)
+  }
+}
+//to update the password based on the user's input.
+async function updatePassword(req, res, next) {
+  let nav = await utilities.getNav()
+  const { account_id, account_password } = req.body
+
+  // Hash the password before storing
+  let hashedPassword
+  try {
+    // regular password and cost (salt is generated automatically)
+    hashedPassword = await bcrypt.hashSync(account_password, 10)
+
+    const updatedPassword = await accountModel.updatePassword(
+      account_id,
+      hashedPassword
+    )
+    if (updatedPassword) {
+      req.flash("notice", `Your password was successfully updated.`)
+      res.status(201).render("./account/management", {
+        title: "Account Management",
+        nav,
+        errors: null,
+      })
+    } else {
+      req.flash("error", `Sorry, the update failed. Please try again.`)
+      res.status(501).render("./account/update", {
+        title: "Edit Account",
+        nav,
+        errors: null,
+        account_id,
+      })
+    }
+  } catch (error) {
+    req.flash("error", "Sorry, there was an error. Please try again.")
+    res.status(500).render("./account/update", {
+      title: "Edit Account",
+      nav,
+      errors: null,
+      account_id,
+    })
+  }
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildManagement, logoutUser, buildAccountEdit, updateAccount, updatePassword, }
