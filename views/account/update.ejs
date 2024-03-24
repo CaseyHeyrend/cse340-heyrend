@@ -4,13 +4,7 @@
     <% } else { res.redirect('/') } %>
 
 <!-- Message Block -->
-<%- messages() %> <% if (errors) { %>
-    <ul class="error">
-      <% errors.array().forEach(error => { %>
-      <li><%= error.msg %></li>
-      <% }) %>
-    </ul>
-    <% } %>
+<%- messages() %>
 
 
 <!-- Update form -->
@@ -54,7 +48,7 @@
     <div class="body-div pass-form">
       <h2>Change Password</h2>
       <form action="/account/updatepassword" method="post" class="account-form">
-           <div class="p-font password-rules">
+           <div class="password-rules">
           <i>
             Passwords must be minimum of 12 characters and include 1 capital letter,
             1 number and 1 special character. <br> Note: your original password will be changed.
