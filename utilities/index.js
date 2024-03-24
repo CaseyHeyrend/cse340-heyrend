@@ -78,7 +78,7 @@ Util.buildVehicleWrap = async function(data) {
     wrap += '</table>'
     wrap += '</div>'
   } else {
-    wrap += '<p class="notice">Sorry, vehicle not found.</p>'
+    wrap += '<p class="notice"> Sorry, vehicle not found.</p>'
   }
   return wrap
 }
@@ -89,7 +89,8 @@ Util.buildVehicleWrap = async function(data) {
  * Wrap other function in this for 
  * General Error Handling
  **************************************** */
-Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+Util.handleErrors = fn => (req, res, next) => 
+Promise.resolve(fn(req, res, next)).catch(next)
 
 
 /* ****************************************
@@ -126,7 +127,11 @@ Util.checkJWTToken = (req, res, next) => {
     return res.redirect("/account/login")
   }
  }
-
+//logout
+Util.logout = (req, res, next) => {
+  res.clearCookie("jwt")
+  res.locals.loggedin = 0
+}
 
 
 module.exports = Util
