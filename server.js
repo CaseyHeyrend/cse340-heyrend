@@ -44,9 +44,10 @@ app.use(function (req, res, next) {
   next();
 });
 
-// Unit 4, Process Registration Activity
+// Week 8 Unit 4, Process Registration Activity
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+// Week 10
 app.use(cookieParser());
 app.use(utilities.checkJWTToken);
 
@@ -58,6 +59,7 @@ app.use(utilities.checkJWTToken);
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") 
+
 
 /* ***********************
  * Routes
@@ -77,6 +79,10 @@ app.use("/account", accountRoute)
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page you were looking for.'})
 })
+/* ***********************
+* CRITICAL!
+*"Place after all other middleware"
+***********************/
 
 /* ***********************
 * Express Error Handler

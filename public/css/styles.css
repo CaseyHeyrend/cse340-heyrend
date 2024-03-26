@@ -375,7 +375,7 @@ select:hover{
 }
 
 /* Management */
-.management {
+.management-links{
   display: grid;
   gap: 2em;
   background-color:var(--main-accent);
@@ -384,16 +384,17 @@ select:hover{
   margin: 25%;
   max-width: 400px;
 }
-.management a {
+.management-links a {
   font-size: larger;
   background-color: white;
   padding: 5px;
   justify-content: center;
 }
-.management a:hover {
+.management-links a:hover {
   background-color: #0094b2;;
   color: white;
 }
+/* Account management */
 
 
 @media only screen and (min-width: 768px) {

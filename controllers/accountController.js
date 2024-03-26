@@ -246,13 +246,4 @@ async function changePassword(req, res) {
 }
 
 module.exports = {
-  buildLogin,
-  buildRegister,
-  registerAccount,
-  accountLogin,
-  buildAccountHome,
-  buildManageAccount,
-  buildAccountUpdate,
-  updateAccount,
-  changePassword,
-};
+  buildLogin, buildRegister, registerAccount, accountLogin, buildAccountHome, buildManageAccount, buildAccountUpdate, updateAccount, changePassword,};
