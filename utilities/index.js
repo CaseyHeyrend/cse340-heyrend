@@ -100,7 +100,7 @@ Util.buildUpgradeInfo = async function (data) {
       data[0].name +
       '"/>'
 
-    detailView += '<div class="details p-font">'
+    detailView += '<div class="details">'
     detailView += "<h2>" + data[0].name + " Details:</h2>"
     detailView += "<ul>"
     detailView +=
@@ -126,8 +126,7 @@ Util.buildUpgradeInfo = async function (data) {
  * ************************************ */
 Util.buildDetailView = async function (vehicle) {
   const formatter = new Intl.NumberFormat("en-US");
-  let upgradeDropdown = await Util.buildUpgradeDropdown(invid)
-
+  //let upgradeDropdown = await Util.buildUpgradeDropdown(invid)
   const html = `
     <div class="vehicle-detail">
       <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${
