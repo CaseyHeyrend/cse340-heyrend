@@ -71,7 +71,7 @@ Util.buildGoBack = async function (vehicle) {
 Util.buildUpgradeDropdown = async function (inv_id, upgrade_id) {
   let data = await invModel.getUpgradesByInventoryID(inv_id)
   let select = `<label for="upgrade_id">Upgrades:</label>
-                <select id="upgrade_id" class="class-dropdown p-font" name="upgrade_id" required>`
+                <select id="upgrade_id" class="class-dropdown" name="upgrade_id" required>`
 
   if (data.length > 0) {
     select += `<option value="" disabled selected>Select upgrade</option>`
@@ -126,6 +126,7 @@ Util.buildUpgradeInfo = async function (data) {
  * ************************************ */
 Util.buildDetailView = async function (vehicle) {
   const formatter = new Intl.NumberFormat("en-US");
+  let upgradeDropdown = await Util.buildUpgradeDropdown(invid)
 
   const html = `
     <div class="vehicle-detail">
@@ -142,6 +143,7 @@ Util.buildDetailView = async function (vehicle) {
   `;
   return html;
 };
+
 
 /* **************************************
  * Build the classification dropdown
