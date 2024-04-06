@@ -63,6 +63,63 @@ Util.buildClassificationGrid = async function (data) {
   }
   return grid;
 };
+Util.buildGoBack = async function (vehicle) {
+  let vehicleName = `${vehicle[0].inv_make} ${vehicle[0].inv_model}`
+  let goBack = `Go back to <a href="/inv/detail/${vehicle[0].inv_id}">${vehicleName}</a>`
+  return goBack
+}
+Util.buildUpgradeDropdown = async function (inv_id, upgrade_id) {
+  let data = await invModel.getUpgradesByInventoryID(inv_id)
+  let select = `<label for="upgrade_id">Upgrades:</label>
+                <select id="upgrade_id" class="class-dropdown p-font" name="upgrade_id" required>`
+
+  if (data.length > 0) {
+    select += `<option value="" disabled selected>Select upgrade</option>`
+
+    for (var i = 0; i < data.length; i++) {
+      const selected =
+        upgrade_id && data[i]?.upgrade_id === upgrade_id ? "selected" : ""
+      select += `<option value="${data[i].upgrade_id}" ${selected}>${data[i].short_name}</option>`
+    }
+  } else {
+    select += `<option value="" disabled selected> No upgrades available </option>`
+  }
+
+  select += `</select>`
+
+  return select
+}
+
+Util.buildUpgradeInfo = async function (data) {
+  let detailView = '<div id="info-wrapper" class="info-wrapper">'
+  if (data.length > 0) {
+    detailView +=
+      '<img class="individual-image" src="' +
+      data[0].image +
+      '" alt="Image of ' +
+      data[0].name +
+      '"/>'
+
+    detailView += '<div class="details p-font">'
+    detailView += "<h2>" + data[0].name + " Details:</h2>"
+    detailView += "<ul>"
+    detailView +=
+      '<li> <span class="boldme">Price:</span> $' +
+      new Intl.NumberFormat("en-US").format(data[0].price) +
+      "</li>"
+    detailView +=
+      '<li> <span class="boldme">Description:</span> ' +
+      data[0].description +
+      "</li>"
+    detailView += "</ul></div>"
+  } else {
+    detailView +=
+      '<p class="notice">Sorry, no matching upgrade could be found.</p>'
+  }
+  detailView += "</div>"
+  return detailView
+}
+
 
 /* **************************************
  * Build the detail view HTML

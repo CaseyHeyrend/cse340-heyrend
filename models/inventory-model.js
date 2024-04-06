@@ -9,6 +9,11 @@ async function getClassifications() {
   );
 }
 
+async function getUpgrades() {
+  return await pool.query(
+    "SELECT * FROM public.upgrade ORDER BY short_name"
+  )
+}
 /* ***************************
  *  Get all inventory items and classification_name by classification_id
  * ************************** */
@@ -18,6 +23,20 @@ async function getInventoryByClassificationId(classification_id) {
     return data.rows;
   } catch (error) {
     console.error("getInventoryByClassificationId error " + error);
+  }
+}
+async function getUpgradesByInventoryID(inv_id) {
+  try {
+    const data = await pool.query(
+      `SELECT u.* FROM public.invupgrade AS iu
+      JOIN public.upgrade AS u
+      ON iu.upgrade_id = u.upgrade_id
+      WHERE iu.inv_id = $1`,
+      [inv_id]
+    )
+    return data.rows
+  } catch (error) {
+    console.error("getupgradesbyinventoryid error " + error)
   }
 }
 
@@ -33,6 +52,17 @@ async function getInventoryItemById(inv_id) {
     return data.rows[0];
   } catch (error) {
     console.error("getInventoryItemById error " + error);
+  }
+}
+async function getUpgradeByID(upgrade_id) {
+  try {
+    const data = await pool.query(
+      "SELECT * FROM public.upgrade as u WHERE u.upgrade_id = $1",
+      [upgrade_id]
+    )
+    return data.rows
+  } catch (error) {
+    console.error("inventorymodel/getUpgradeByID error " + error)
   }
 }
 
@@ -150,4 +180,4 @@ async function deleteInventory(inv_id) {
   }
 }
 
-module.exports = {getClassifications,getInventoryByClassificationId,getInventoryItemById,addClassification,addInventory,updateInventory,deleteInventory,};
+module.exports = {getClassifications, getUpgrades, getInventoryByClassificationId, getUpgradesByInventoryID, getInventoryItemById, addClassification, getUpgradeByID, addInventory, updateInventory, deleteInventory,};

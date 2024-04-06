@@ -55,5 +55,7 @@ router.get("/delete/:inv_id",utilities.checkAdmin,utilities.handleError(invContr
 // Handle delete inventory post request
 router.post("/delete-inventory",utilities.handleError(invController.deleteInventory)
 );
-
+router.get(
+  "/upgrade/:upgrade_id/:inv_id", utilities.handleError(invController.buildUpgrade)
+)
 module.exports = router;
