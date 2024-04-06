@@ -139,6 +139,35 @@ nav a {
   padding-top: 1em;
   padding-bottom: 1em;
 }
+
+#hamburgerBtn {
+  display: block;
+  margin: auto;
+  background-color: black;
+  border: 4px solid rgba(var(--accent));
+  font-size: 2.5rem;
+  color: rgba(var(--accent));
+  padding: 4px 6px;
+}
+
+nav ul.open {
+  display: block;
+  background-color: black;
+}
+
+#hamburgerBtn span:nth-child(1) {
+  display: block;
+}
+#hamburgerBtn span:nth-child(2) {
+  display: none;
+  font-family: var(--heading-font);
+}
+#hamburgerBtn.open span:nth-child(1) {
+  display: none;
+}
+#hamburgerBtn.open span:nth-child(2) {
+  display: block;
+  font-family: var(--heading-font);}
 /* End of navigation*/
 /* Footer */
 footer{
