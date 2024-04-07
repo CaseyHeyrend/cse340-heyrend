@@ -9,7 +9,7 @@ async function getClassifications() {
   );
 }
 
-async function getUpgrades() {
+async function getUpgrade() {
   return await pool.query(
     "SELECT * FROM public.upgrade ORDER BY short_name"
   )
@@ -25,7 +25,7 @@ async function getInventoryByClassificationId(classification_id) {
     console.error("getInventoryByClassificationId error " + error);
   }
 }
-async function getUpgradesByInventoryID(inv_id) {
+async function getUpgradeByInventoryID(inv_id) {
   try {
     const data = await pool.query(
       `SELECT u.* FROM public.invupgrade AS iu
@@ -189,6 +189,6 @@ module.exports = {
   addInventory, 
   updateInventory, 
   deleteInventory, 
-  getUpgrades,
+  getUpgrade,
   getUpgradeByID, 
-  getUpgradesByInventoryID,};
+  getUpgradeByInventoryID,};

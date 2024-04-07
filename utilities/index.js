@@ -69,7 +69,7 @@ Util.buildGoBack = async function (vehicle) {
   return goBack
 }
 Util.buildUpgradeDropdown = async function (inv_id, upgrade_id) {
-  let data = await invModel.getUpgradesByInventoryID(inv_id)
+  let data = await invModel.getUpgradeByInventoryID(inv_id)
   let select = `<label for="upgrade_id">Upgrades:</label>
                 <select id="upgrade_id" class="class-dropdown" name="upgrade_id" required>`
 
@@ -91,33 +91,33 @@ Util.buildUpgradeDropdown = async function (inv_id, upgrade_id) {
 }
 
 Util.buildUpgrade = async function (data) {
-  let upgradePage = '<div id="info-wrapper" class="info-wrapper">'
+  let detailView = '<div id="info-wrapper" class="info-wrapper">'
   if (data.length > 0) {
-    upgradePage +=
-      '<img class="individual-image" src="' +
+    detailView +=
+      '<img class="detail-image" src="' +
       data[0].image +
       '" alt="Image of ' +
       data[0].name +
       '"/>'
 
-    upgradePage += '<div class="details">'
-    upgradePage += "<h2>" + data[0].name + " Details:</h2>"
-    upgradePage += "<ul>"
-    upgradePage +=
-      '<li> <span class="boldme">Price:</span> $' +
+    detailView += '<div class="details">'
+    detailView += "<h2>" + data[0].name + " Details:</h2>"
+    detailView += "<ul>"
+    detailView +=
+      '<li>Price:$' +
       new Intl.NumberFormat("en-US").format(data[0].price) +
       "</li>"
-    upgradePage +=
-      '<li> <span class="boldme">Description:</span> ' +
+    detailView +=
+      '<li> Description: ' +
       data[0].description +
       "</li>"
-    upgradePage += "</ul></div>"
+    detailView += "</ul></div>"
   } else {
-    upgradePage +=
-      '<p class="notice">Sorry, no matching upgrade could be found.</p>'
+    detailView +=
+      '<p class="notice"> Sorry, no matching upgrade could be found.</p>'
   }
-  upgradePage += "</div>"
-  return upgradePage
+  detailView += "</div>"
+  return detailView
 }
 
 
@@ -126,7 +126,6 @@ Util.buildUpgrade = async function (data) {
  * ************************************ */
 Util.buildDetailView = async function (vehicle) {
   const formatter = new Intl.NumberFormat("en-US");
-  //let upgradeDropdown = await Util.buildUpgradeDropdown(invid)
   const html = `
     <div class="vehicle-detail">
       <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${
@@ -163,6 +162,13 @@ Util.buildDropdown = async function () {
 
   return dropdown;
 };
+/* **************************************
+ * Upgrade
+ * ************************************ */
+
+
+
+
 
 /* **************************************
  * Middleware for handling errors
