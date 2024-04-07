@@ -90,7 +90,7 @@ Util.buildUpgradeDropdown = async function (inv_id, upgrade_id) {
   return select
 }
 
-Util.buildUpgradeInfo = async function (data) {
+Util.buildUpgrade = async function (data) {
   let upgradePage = '<div id="info-wrapper" class="info-wrapper">'
   if (data.length > 0) {
     upgradePage +=
