@@ -63,6 +63,62 @@ Util.buildClassificationGrid = async function (data) {
   }
   return grid;
 };
+Util.buildGoBack = async function (vehicle) {
+  let vehicleName = `${vehicle[0].inv_make} ${vehicle[0].inv_model}`
+  let goBack = `Go back to <a href="/inv/detail/${vehicle[0].inv_id}">${vehicleName}</a>`
+  return goBack
+}
+Util.buildUpgradeDropdown = async function (inv_id, upgrade_id) {
+  let data = await invModel.getUpgradesByInventoryID(inv_id)
+  let select = `<label for="upgrade_id">Upgrades:</label>
+                <select id="upgrade_id" class="class-dropdown" name="upgrade_id" required>`
+
+  if (data.length > 0) {
+    select += `<option value="" disabled selected>Select upgrade</option>`
+
+    for (var i = 0; i < data.length; i++) {
+      const selected =
+        upgrade_id && data[i]?.upgrade_id === upgrade_id ? "selected" : ""
+      select += `<option value="${data[i].upgrade_id}" ${selected}>${data[i].short_name}</option>`
+    }
+  } else {
+    select += `<option value="" disabled selected> No upgrades available </option>`
+  }
+
+  select += `</select>`
+
+  return select
+}
+
+Util.buildUpgrade = async function (data) {
+  let upgradePage = '<div id="info-wrapper" class="info-wrapper">'
+  if (data.length > 0) {
+    upgradePage +=
+      '<img class="individual-image" src="' +
+      data[0].image +
+      '" alt="Image of ' +
+      data[0].name +
+      '"/>'
+
+    upgradePage += '<div class="details">'
+    upgradePage += "<h2>" + data[0].name + " Details:</h2>"
+    upgradePage += "<ul>"
+    upgradePage +=
+      '<li> <span class="boldme">Price:</span> $' +
+      new Intl.NumberFormat("en-US").format(data[0].price) +
+      "</li>"
+    upgradePage +=
+      '<li> <span class="boldme">Description:</span> ' +
+      data[0].description +
+      "</li>"
+    upgradePage += "</ul></div>"
+  } else {
+    upgradePage +=
+      '<p class="notice">Sorry, no matching upgrade could be found.</p>'
+  }
+  upgradePage += "</div>"
+  return upgradePage
+}
 
 
 /* **************************************
