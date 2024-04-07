@@ -91,33 +91,33 @@ Util.buildUpgradeDropdown = async function (inv_id, upgrade_id) {
 }
 
 Util.buildUpgradeInfo = async function (data) {
-  let detailView = '<div id="info-wrapper" class="info-wrapper">'
+  let upgradePage = '<div id="info-wrapper" class="info-wrapper">'
   if (data.length > 0) {
-    detailView +=
+    upgradePage +=
       '<img class="individual-image" src="' +
       data[0].image +
       '" alt="Image of ' +
       data[0].name +
       '"/>'
 
-    detailView += '<div class="details">'
-    detailView += "<h2>" + data[0].name + " Details:</h2>"
-    detailView += "<ul>"
-    detailView +=
+    upgradePage += '<div class="details">'
+    upgradePage += "<h2>" + data[0].name + " Details:</h2>"
+    upgradePage += "<ul>"
+    upgradePage +=
       '<li> <span class="boldme">Price:</span> $' +
       new Intl.NumberFormat("en-US").format(data[0].price) +
       "</li>"
-    detailView +=
+    upgradePage +=
       '<li> <span class="boldme">Description:</span> ' +
       data[0].description +
       "</li>"
-    detailView += "</ul></div>"
+    upgradePage += "</ul></div>"
   } else {
-    detailView +=
+    upgradePage +=
       '<p class="notice">Sorry, no matching upgrade could be found.</p>'
   }
-  detailView += "</div>"
-  return detailView
+  upgradePage += "</div>"
+  return upgradePage
 }
 
 

@@ -54,16 +54,17 @@ invCont.buildUpgrade = async function (req, res, next) {
     const vehicle = await invModel.getVehicleByInvId(inv_id)
     const goBack = await utilities.buildGoBack(vehicle)
     const data = await invModel.getUpgradeByID(upgrade_id)
-    const upgradeInfoPage = await utilities.buildUpgradeInfo(data)
+    const upgradePage = await utilities.buildUpgradeInfo(data)
     let nav = await utilities.getNav()
 
     const upgradeName = data[0].name 
     res.render("./inventory/upgrade", {
-      title: upgradeName,
+      title: "Upgrade Name",
       nav,
       goBack,
-      upgradeInfoPage,
+      upgradePage,
       errors: null,
+      messages: req.flash(),
     })
   }
 
